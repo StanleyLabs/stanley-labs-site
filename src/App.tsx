@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 
@@ -392,16 +393,23 @@ function BookPage() {
     </main>
   );
 }
+=======
+import { Route, Routes } from "react-router-dom";
+import { LazyMotion, domAnimation } from "motion/react";
+import { TopNav, Footer, HomePage, BookPage } from "@/components";
+>>>>>>> 1c6f5dbc09951ecfa2104212c0b61d1cd8587abc
 
 export default function App() {
   return (
-    <div className="min-h-dvh bg-ink text-paper">
-      <TopNav />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/book" element={<BookPage />} />
-      </Routes>
-      <Footer />
-    </div>
+    <LazyMotion features={domAnimation} strict>
+      <div className="min-h-dvh bg-ink text-paper">
+        <TopNav />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/book" element={<BookPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </LazyMotion>
   );
 }
