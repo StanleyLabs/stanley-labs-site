@@ -4,7 +4,13 @@ export const MAX_PROCESS_STEPS = 4;
 /** Delay (ms) before scrolling after route navigation. */
 export const SCROLL_DELAY_MS = 50;
 
-export const CALENDLY_URL = "https://calendly.com/stanleylabs/30min";
+/** Calendly embed colors – dark theme to match site */
+const CALENDLY_BG = "0B0D10"; /* ink – match site background */
+const CALENDLY_TEXT = "F2F4F7";
+const CALENDLY_PRIMARY = "3A78FF"; /* darker than 4A88FF, still lighter than electric */
+
+export const CALENDLY_URL =
+  `https://calendly.com/stanleylabs/30min?embed_type=Inline&hide_gdpr_banner=1&background_color=${CALENDLY_BG}&text_color=${CALENDLY_TEXT}&primary_color=${CALENDLY_PRIMARY}`;
 
 /** Shared easing for hover/transition animations. */
 export const HOVER_EASE = [0.22, 1, 0.36, 1] as const;

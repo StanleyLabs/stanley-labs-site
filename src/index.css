@@ -57,6 +57,16 @@ html { scroll-behavior: smooth; }
 html, body { height: 100%; }
 body { margin: 0; background: theme(colors.ink); color: theme(colors.paper); font-family: theme(fontFamily.sans); }
 
+@keyframes calendly-load-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Calendly: transparent background, avoid forced white in dark mode */
+.calendly-inline-widget {
+  background-color: transparent;
+}
+
 /* Subtle cinematic grain (polished, not noisy) */
 .grain { position: relative; }
 .grain::before {
