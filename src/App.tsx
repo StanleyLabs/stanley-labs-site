@@ -139,14 +139,17 @@ function HomePage() {
             {[
               {
                 title: "Landing Pages",
+                price: "$1,500+",
                 desc: "Launch fast. Look premium. Optimize for conversion.",
               },
               {
                 title: "Websites",
+                price: "$3,500+",
                 desc: "Multi-page sites with clean UX, SEO basics, and great performance.",
               },
               {
                 title: "Web Apps",
+                price: "$7,500+",
                 desc: "Dashboards, portals, prototypes → production builds.",
               },
             ].map((s) => (
@@ -154,12 +157,104 @@ function HomePage() {
                 key={s.title}
                 className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
               >
-                <div className="font-display text-lg text-paper">{s.title}</div>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="font-display text-lg text-paper">{s.title}</div>
+                  <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-fog/80">
+                    {s.price}
+                  </div>
+                </div>
                 <div className="mt-2 text-sm leading-relaxed text-fog/85">
                   {s.desc}
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 text-sm text-fog/75">
+            Pricing is a starting point and varies by scope.
+            <a href="#pricing" className="ml-2 text-electric hover:text-electric/90">
+              See details →
+            </a>
+          </div>
+        </Container>
+      </section>
+
+      <section id="pricing" className="py-16 sm:py-20">
+        <Container>
+          <h2 className="font-display text-2xl text-paper sm:text-3xl">Pricing</h2>
+          <p className="mt-2 max-w-2xl text-fog/85">
+            Simple packages to get moving fast. Every project includes clean implementation,
+            mobile responsiveness, and performance-first UI.
+          </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                title: "Landing Page",
+                price: "$1,500+",
+                bullets: [
+                  "1 page + sections",
+                  "Copy/layout help",
+                  "Basic SEO + analytics",
+                  "1 round of revisions",
+                ],
+              },
+              {
+                title: "Website",
+                price: "$3,500+",
+                bullets: [
+                  "Up to ~5 pages",
+                  "Design system + components",
+                  "Basic SEO + sitemap",
+                  "2 rounds of revisions",
+                ],
+              },
+              {
+                title: "Web App",
+                price: "$7,500+",
+                bullets: [
+                  "Dashboard / portal / MVP",
+                  "Auth + database integration",
+                  "UI states + error handling",
+                  "Production-ready handoff",
+                ],
+              },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="font-display text-lg text-paper">{p.title}</div>
+                    <div className="mt-1 font-mono text-xs text-fog/70">Starting at</div>
+                  </div>
+                  <div className="font-display text-2xl text-paper">{p.price}</div>
+                </div>
+
+                <ul className="mt-5 space-y-2 text-sm text-fog/85">
+                  {p.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-[2px] text-electric">▸</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-6">
+                  <NavLink
+                    to="/book"
+                    className="inline-flex w-full items-center justify-center rounded-md bg-electric px-4 py-2 text-sm font-semibold text-white hover:bg-electric/90"
+                  >
+                    Get a quote
+                  </NavLink>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-5 text-sm text-fog/80">
+            Need something custom (3D, WebGL, integrations, complex animations)? We’ll scope it on a call.
           </div>
         </Container>
       </section>
