@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <!-- Big readable mark without distortion. Scaled up to reduce whitespace. -->
+  <!-- Rounded border + centered mark (no distortion) -->
+  <rect x="8" y="8" width="112" height="112" rx="22" fill="none" stroke="#F2F4F7" stroke-width="6" />
+
+  <!-- Scale up uniformly to reduce whitespace, then nudge for optical centering -->
   <g transform="translate(64 64) scale(1.18) translate(-64 -64)">
     <text
       x="64"
-      y="92"
+      y="88"
       text-anchor="middle"
       font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace"
       font-size="96"
