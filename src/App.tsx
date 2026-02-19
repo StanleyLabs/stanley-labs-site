@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 
-const CALENDLY_URL =
-  "https://calendly.com/stanleylabs/30min?background_color=0b0d10&text_color=f2f4f7";
+const CALENDLY_URL = "https://calendly.com/stanleylabs/30min";
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
@@ -31,16 +30,16 @@ function TopNav() {
 
           <nav className="hidden items-center gap-6 sm:flex">
             <a
-              href="#services"
+              href="/#services"
               className="text-sm text-fog/90 hover:text-paper"
             >
               Services
             </a>
-            <a href="#work" className="text-sm text-fog/90 hover:text-paper">
+            <a href="/#work" className="text-sm text-fog/90 hover:text-paper">
               Work
             </a>
             <a
-              href="#process"
+              href="/#process"
               className="text-sm text-fog/90 hover:text-paper"
             >
               Process
@@ -97,7 +96,7 @@ function HomePage() {
         <Container>
           <div className="relative py-20 sm:py-28">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-fog/80">
-              <span className="text-signal">●</span> Taking projects — Nashville & remote
+              <span className="text-green-400">●</span> Taking projects — Nashville & remote
             </div>
 
             <h1 className="mt-6 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-paper sm:text-6xl">

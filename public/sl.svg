@@ -8,5 +8,5 @@
   <rect x="10" y="10" width="108" height="108" rx="18" fill="#151A21"/>
   <rect x="10" y="10" width="108" height="108" rx="18" fill="url(#g)"/>
   <rect x="10" y="10" width="108" height="108" rx="18" fill="none" stroke="rgba(242,244,247,0.14)"/>
-  <text x="64" y="82" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="56" font-weight="500" fill="#C7CEDA">SL</text>
+  <text x="64" y="88" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="72" font-weight="700" fill="#F2F4F7">SL</text>
 </svg>
