@@ -21,10 +21,10 @@ export const heroVariants = {
 };
 
 export const processSteps = [
-  { number: "01", title: "Discover", description: "Goals, audience, content, constraints." },
-  { number: "02", title: "Design", description: "Wireframes → UI with a crisp system." },
-  { number: "03", title: "Build", description: "Fast, responsive, accessible implementation." },
-  { number: "04", title: "Launch", description: "Ship, measure, iterate." },
+  { number: "01", title: "Discover", description: "Goals, audience, content, constraints.", accentColor: "#2D6BFF", gradient: "linear-gradient(135deg, rgba(45,107,255,0.12) 0%, transparent 60%)", shadow: "rgba(45,107,255,0.1)" },
+  { number: "02", title: "Design", description: "Wireframes → UI with a crisp system.", accentColor: "#FF3B3B", gradient: "linear-gradient(135deg, rgba(255,59,59,0.12) 0%, transparent 60%)", shadow: "rgba(255,59,59,0.1)" },
+  { number: "03", title: "Build", description: "Fast, responsive, accessible implementation.", accentColor: "#4ADE80", gradient: "linear-gradient(135deg, rgba(74,222,128,0.12) 0%, transparent 60%)", shadow: "rgba(74,222,128,0.1)" },
+  { number: "04", title: "Launch", description: "Ship, measure, iterate.", accentColor: "#A855F7", gradient: "linear-gradient(135deg, rgba(168,85,247,0.12) 0%, transparent 60%)", shadow: "rgba(168,85,247,0.1)" },
 ] as const;
 
 export const services = [
@@ -34,6 +34,22 @@ export const services = [
 ] as const;
 
 export const workItems = [
-  { title: "Drummaverse", tags: "React • TypeScript • Babylon.js", href: "https://drummaverse.nexmos.io", gradient: "linear-gradient(135deg, rgba(45,107,255,0.12) 0%, transparent 60%)", shadow: "rgba(45,107,255,0.1)" },
-  { title: "Group Video Chat", tags: "WebRTC • Socket.io • Node", href: "https://video-chat.up.railway.app/", gradient: "linear-gradient(135deg, rgba(255,59,59,0.06) 0%, transparent 60%)", shadow: "rgba(255,59,59,0.1)" },
+  {
+    title: "Drummaverse",
+    desc: "Interactive 3D drum experience in the browser. Play and explore in an immersive musical environment built with Babylon.js.",
+    tags: "React • TypeScript • Babylon.js",
+    href: "https://drummaverse.nexmos.io",
+    gradient: "linear-gradient(135deg, rgba(45,107,255,0.12) 0%, transparent 60%)",
+    shadow: "rgba(45,107,255,0.1)",
+    accentColor: "#2D6BFF",
+  },
+  {
+    title: "Group Video Chat",
+    desc: "Real-time video conferencing with WebRTC. Join rooms, share video and audio, built for low-latency collaboration.",
+    tags: "WebRTC • Socket.io • Node",
+    href: "https://video-chat.up.railway.app/",
+    gradient: "linear-gradient(135deg, rgba(255,59,59,0.06) 0%, transparent 60%)",
+    shadow: "rgba(255,59,59,0.1)",
+    accentColor: "#FF3B3B",
+  },
 ] as const;
