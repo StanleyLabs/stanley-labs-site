@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 
-const CALENDLY_URL = "https://calendly.com/stanley-labs-hq/30min";
+const CALENDLY_URL =
+  "https://calendly.com/stanleylabs/30min?background_color=0b0d10&text_color=f2f4f7";
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
@@ -253,6 +255,20 @@ function HomePage() {
 }
 
 function BookPage() {
+  // Loads Calendly's widget script once.
+  // The inline widget reads the URL from data-url on the div.
+  // (Matches Calendly's recommended embed.)
+  useEffect(() => {
+    const id = "calendly-widget";
+    if (document.getElementById(id)) return;
+
+    const s = document.createElement("script");
+    s.id = id;
+    s.src = "https://assets.calendly.com/assets/external/widget.js";
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
+
   return (
     <main className="py-10 sm:py-14">
       <Container>
@@ -272,10 +288,10 @@ function BookPage() {
         </div>
 
         <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-insetHairline">
-          <iframe
-            title="Calendly"
-            src={CALENDLY_URL}
-            className="h-[900px] w-full"
+          <div
+            className="calendly-inline-widget"
+            data-url={CALENDLY_URL}
+            style={{ minWidth: 320, height: 700 }}
           />
         </div>
       </Container>
