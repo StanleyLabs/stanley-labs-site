@@ -70,7 +70,7 @@ function Footer() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-sm text-fog/80">
             <div className="font-display tracking-[0.18em] text-paper">STANLEY LABS</div>
-            <div className="mt-1">Websites & software for startups.</div>
+            <div className="mt-1">Websites & software for businesses.</div>
             <div className="mt-1">A creative technology studio.</div>
           </div>
           <div className="flex items-center gap-4 text-sm">
@@ -99,7 +99,7 @@ function HomePage() {
             </div>
 
             <h1 className="mt-6 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-paper sm:text-6xl">
-              Websites & software for startups.
+              Websites & software for businesses.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-fog/90 sm:text-lg">
               Stanley Labs designs and builds fast, cinematic web experiences—crafted in React/TypeScript with clean systems, sharp UI, and reliable delivery.
@@ -235,7 +235,7 @@ function HomePage() {
               Ready to build?
             </h2>
             <p className="mt-2 max-w-2xl text-fog/85">
-              If you’re a startup or local business that needs a site that looks premium and ships reliably, let’s talk.
+              If you need a site that looks premium and ships reliably, let’s talk.
             </p>
             <div className="mt-6">
               <NavLink
