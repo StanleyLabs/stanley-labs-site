@@ -33,6 +33,49 @@ export const services = [
   { title: "Web Apps", desc: "Dashboards, portals, prototypes → production builds.", accentColor: "#4ADE80", accentShadow: "rgba(74,222,128,0.06)", icon: "03" },
 ] as const;
 
+export const xrServices = [
+  {
+    title: "WebGL / 3D Interactive Hero",
+    price: "Starting at $1,500",
+    desc: "Cinematic 3D hero section (Three.js/Babylon.js). Progressive enhancement + perf budget.",
+    accentColor: "#22D3EE",
+    accentShadow: "rgba(34,211,238,0.08)",
+    icon: "XR01",
+  },
+  {
+    title: "3D Product + Scroll Storytelling",
+    price: "Starting at $3,500",
+    desc: "Spin/zoom product view with scroll-driven narrative beats, callouts, and smooth fallbacks.",
+    accentColor: "#A855F7",
+    accentShadow: "rgba(168,85,247,0.08)",
+    icon: "XR02",
+  },
+  {
+    title: "3D Configurator",
+    price: "$5,000–$15,000+",
+    desc: "Colorways, materials, options, and states with a clean UI and optimized asset pipeline.",
+    accentColor: "#FB7185",
+    accentShadow: "rgba(251,113,133,0.08)",
+    icon: "XR03",
+  },
+  {
+    title: "WebXR AR Preview (Phone/Tabletop)",
+    price: "$3,000–$9,000+",
+    desc: "AR quick-look style preview for supported devices. Designed for stability + delight.",
+    accentColor: "#60A5FA",
+    accentShadow: "rgba(96,165,250,0.08)",
+    icon: "XR04",
+  },
+  {
+    title: "WebXR VR Showroom / Walkthrough",
+    price: "$8,000–$25,000+",
+    desc: "Immersive VR space for product/showcase flows, with input support and comfort-first motion.",
+    accentColor: "#34D399",
+    accentShadow: "rgba(52,211,153,0.08)",
+    icon: "XR05",
+  },
+] as const;
+
 export const workItems = [
   {
     title: "Drummaverse",
