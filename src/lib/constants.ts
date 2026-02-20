@@ -67,8 +67,8 @@ export const xrServices = [
     title: "3D Product + Scroll Storytelling",
     price: "Starting at $3,500",
     desc: "Spin/zoom product view + scroll-driven story beats, callouts, and fallbacks.",
-    accentColor: "#A855F7",
-    accentShadow: "rgba(168,85,247,0.08)",
+    accentColor: "#FBBF24",
+    accentShadow: "rgba(251,191,36,0.08)",
     icon: "XR02",
   },
   {
@@ -96,11 +96,11 @@ export const xrServices = [
     icon: "XR05",
   },
   {
-    title: "WebXR Game",
+    title: "Web Game",
     price: "$10,000–$40,000+",
-    desc: "Browser-based XR game with real-time interaction, physics, and cross-device play.",
-    accentColor: "#FBBF24",
-    accentShadow: "rgba(251,191,36,0.08)",
+    desc: "Real-time browser game — physics, input, multiplayer-ready. No installs, just play.",
+    accentColor: "#A855F7",
+    accentShadow: "rgba(168,85,247,0.08)",
     icon: "XR06",
   },
 ] as const;
