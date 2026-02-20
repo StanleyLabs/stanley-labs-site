@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence, LayoutGroup, motion as m } from "motion/react";
+import { AnimatePresence, LayoutGroup, MotionConfig, motion as m } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { services, xrServices, HOVER_EASE } from "@/lib/constants";
 
 const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
-const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
+const SECTION_TRANSITION = { duration: 0.38, ease: HOVER_EASE };
 
 const gridVariants = {
   hidden: { opacity: 1 },
@@ -25,7 +25,7 @@ const cardVariants = {
   exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -14 : 14, scale: 0.995 }),
 } as const;
 
-const CARD_TRANSITION = { type: "spring", stiffness: 520, damping: 40 } as const;
+const CARD_TRANSITION = { type: "spring", stiffness: 420, damping: 36, mass: 0.9 } as const;
 
 function ServiceCard({
   service,
@@ -237,9 +237,10 @@ export function ServicesSection() {
             - All → Core: *remove* XR below.
             - Core ↔ XR: swap blocks, both moving upward/downward with layout.
           */}
-          <LayoutGroup id="servicesBlocks">
-            <m.div layout className="mt-8 space-y-10">
-              <AnimatePresence initial={false} mode="sync">
+          <MotionConfig reducedMotion="never">
+            <LayoutGroup id="servicesBlocks">
+              <m.div layout className="mt-8 space-y-10">
+                <AnimatePresence initial={false} mode="sync">
                 {showCore ? (
                   <ServicesBlock
                     id="core"
@@ -258,9 +259,10 @@ export function ServicesSection() {
                     showDisclaimer
                   />
                 ) : null}
-              </AnimatePresence>
-            </m.div>
-          </LayoutGroup>
+                </AnimatePresence>
+              </m.div>
+            </LayoutGroup>
+          </MotionConfig>
         </Reveal>
       </Container>
     </section>
