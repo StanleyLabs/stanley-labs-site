@@ -8,12 +8,21 @@ import { services, xrServices, HOVER_EASE } from "@/lib/constants";
 const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
 
-const CARD_ENTER = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.28, ease: HOVER_EASE },
+const gridVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.02 },
+  },
 } as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 12, scale: 0.99 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -10, scale: 0.99 },
+} as const;
+
+const CARD_TRANSITION = { type: "spring", stiffness: 520, damping: 42 } as const;
 
 function ServiceCard({
   service,
@@ -36,9 +45,6 @@ function ServiceCard({
         transition: HOVER_TRANSITION,
       }}
       transition={HOVER_TRANSITION}
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
     >
       <div
         className="absolute top-0 left-0 h-0.5 w-full origin-left scale-x-[0.15] transition-transform duration-300 ease-out group-hover:scale-x-100"
@@ -129,13 +135,28 @@ function ServicesBlock({
     >
       <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        {items.map((service) => (
-          <m.div key={service.title} layout {...CARD_ENTER}>
-            <ServiceCard service={service} />
-          </m.div>
-        ))}
-      </div>
+      <m.div
+        className="grid gap-4 sm:grid-cols-3"
+        variants={gridVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <AnimatePresence initial={false} mode="popLayout">
+          {items.map((service) => (
+            <m.div
+              key={service.title}
+              layout
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={CARD_TRANSITION}
+            >
+              <ServiceCard service={service} />
+            </m.div>
+          ))}
+        </AnimatePresence>
+      </m.div>
 
       {showDisclaimer ? (
         <m.p
