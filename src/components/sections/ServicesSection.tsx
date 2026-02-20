@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence, LayoutGroup, MotionConfig, motion as m } from "motion/react";
+import { LayoutGroup, MotionConfig, motion as m } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { services, xrServices, HOVER_EASE } from "@/lib/constants";
@@ -13,19 +13,27 @@ const gridVariants = {
     opacity: 1,
     transition: { staggerChildren: 0.06, delayChildren: 0.03 },
   },
-  exit: {
-    opacity: 1,
-    transition: { staggerChildren: 0.04, staggerDirection: -1 },
-  },
 } as const;
 
 const cardVariants = {
-  hidden: (dir: number) => ({ opacity: 0, y: dir > 0 ? 26 : -26 }),
+  hidden: (dir: number) => ({ opacity: 0, y: dir > 0 ? 18 : -18 }),
   visible: { opacity: 1, y: 0 },
-  exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -26 : 26 }),
 } as const;
 
 const CARD_TRANSITION = { duration: 0.38, ease: HOVER_EASE } as const;
+
+const blockVariants = {
+  open: {
+    opacity: 1,
+    height: "auto",
+    transition: { duration: 0.35, ease: HOVER_EASE },
+  },
+  closed: {
+    opacity: 0,
+    height: 0,
+    transition: { duration: 0.25, ease: HOVER_EASE },
+  },
+} as const;
 
 function ServiceCard({
   service,
@@ -112,6 +120,7 @@ function ServicesBlock({
   items,
   direction,
   showDisclaimer,
+  active,
 }: {
   id: string;
   label: string;
@@ -125,57 +134,48 @@ function ServicesBlock({
   }>;
   direction: number;
   showDisclaimer?: boolean;
+  active: boolean;
 }) {
   return (
-    <m.section
-      key={id}
-      layout
-      initial={{ opacity: 0, y: direction > 0 ? 10 : -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: direction > 0 ? -10 : 10 }}
-      transition={SECTION_TRANSITION}
-      className="space-y-4"
-    >
+    <m.section key={id} layout transition={SECTION_TRANSITION} className="space-y-4">
       <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
 
       <m.div
-        className="grid gap-4 sm:grid-cols-3"
-        variants={gridVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
+        layout
+        className="overflow-hidden"
+        variants={blockVariants}
+        initial={false}
+        animate={active ? "open" : "closed"}
+        style={{ pointerEvents: active ? "auto" : "none" }}
       >
-        <AnimatePresence initial={false} mode="wait">
+        <m.div
+          className="grid gap-4 sm:grid-cols-3"
+          variants={gridVariants}
+          initial={false}
+          animate={active ? "visible" : "hidden"}
+        >
           {items.map((service) => (
             <m.div
               key={service.title}
               layout="position"
               custom={direction}
               variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              initial={false}
+              animate={active ? "visible" : "hidden"}
               transition={CARD_TRANSITION}
             >
               <ServiceCard service={service} />
             </m.div>
           ))}
-        </AnimatePresence>
-      </m.div>
+        </m.div>
 
-      {showDisclaimer ? (
-        <m.p
-          layout
-          className="max-w-3xl text-xs text-fog/60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: HOVER_EASE }}
-        >
-          *Pricing is indicative. Final quote depends on content readiness, 3D asset complexity,
-          performance targets, and any back-end/integration requirements.
-        </m.p>
-      ) : null}
+        {showDisclaimer ? (
+          <m.p layout className="mt-4 max-w-3xl text-xs text-fog/60">
+            *Pricing is indicative. Final quote depends on content readiness, 3D asset complexity,
+            performance targets, and any back-end/integration requirements.
+          </m.p>
+        ) : null}
+      </m.div>
     </m.section>
   );
 }
@@ -240,26 +240,22 @@ export function ServicesSection() {
           <MotionConfig reducedMotion="never">
             <LayoutGroup id="servicesBlocks">
               <m.div layout className="mt-8 space-y-10">
-                <AnimatePresence initial={false} mode="wait">
-                {showCore ? (
-                  <ServicesBlock
-                    id="core"
-                    label={`CORE WEB (${services.length})`}
-                    items={services}
-                    direction={direction}
-                  />
-                ) : null}
+                <ServicesBlock
+                  id="core"
+                  label={`CORE WEB (${services.length})`}
+                  items={services}
+                  direction={direction}
+                  active={showCore}
+                />
 
-                {showXr ? (
-                  <ServicesBlock
-                    id="xr"
-                    label={`3D / XR (${xrServices.length})`}
-                    items={xrServices}
-                    direction={direction}
-                    showDisclaimer
-                  />
-                ) : null}
-                </AnimatePresence>
+                <ServicesBlock
+                  id="xr"
+                  label={`3D / XR (${xrServices.length})`}
+                  items={xrServices}
+                  direction={direction}
+                  active={showXr}
+                  showDisclaimer
+                />
               </m.div>
             </LayoutGroup>
           </MotionConfig>
