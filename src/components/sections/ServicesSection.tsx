@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence, LayoutGroup } from "motion/react";
-import * as m from "motion/react-m";
+import { AnimatePresence, LayoutGroup, motion as m } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { services, xrServices, HOVER_EASE } from "@/lib/constants";
