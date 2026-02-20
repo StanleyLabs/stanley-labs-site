@@ -136,7 +136,14 @@ function ServicesBlock({
 }) {
   return (
     <m.section key={id} layout transition={SECTION_TRANSITION} className="space-y-4">
-      <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
+      <m.div
+        layout
+        animate={{ opacity: active ? 1 : 0, height: active ? "auto" : 0 }}
+        transition={{ duration: 0.25, ease: HOVER_EASE }}
+        className="overflow-hidden"
+      >
+        <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
+      </m.div>
 
       <m.div
         layout
