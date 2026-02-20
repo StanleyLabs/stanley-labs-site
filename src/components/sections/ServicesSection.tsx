@@ -73,10 +73,8 @@ function TabButton({
       type="button"
       onClick={onClick}
       className={
-        "relative isolate rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-widest transition-colors " +
-        (active
-          ? "border-white/15 text-paper"
-          : "border-white/10 bg-white/5 text-fog/75 hover:text-paper")
+        "relative isolate flex-1 rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-widest transition-colors " +
+        (active ? "text-paper" : "text-fog/75 hover:text-paper")
       }
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2, ease: HOVER_EASE }}
@@ -88,7 +86,7 @@ function TabButton({
           transition={{ duration: 0.25, ease: HOVER_EASE }}
         />
       ) : null}
-      {children}
+      <span className="relative z-10">{children}</span>
     </m.button>
   );
 }
@@ -119,16 +117,18 @@ export function ServicesSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              <TabButton active={tab === "core"} onClick={() => setTab("core")}>
-                Core
-              </TabButton>
-              <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
-                3D / XR
-              </TabButton>
-              <TabButton active={tab === "all"} onClick={() => setTab("all")}>
-                All
-              </TabButton>
+            <div className="w-full sm:w-auto">
+              <div className="flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
+                <TabButton active={tab === "core"} onClick={() => setTab("core")}>
+                  Core
+                </TabButton>
+                <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
+                  3D / XR
+                </TabButton>
+                <TabButton active={tab === "all"} onClick={() => setTab("all")}>
+                  All
+                </TabButton>
+              </div>
             </div>
           </div>
 
