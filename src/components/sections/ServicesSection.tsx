@@ -22,18 +22,7 @@ const cardVariants = {
 
 const CARD_TRANSITION = { duration: 0.38, ease: HOVER_EASE } as const;
 
-const blockVariants = {
-  open: {
-    opacity: 1,
-    height: "auto",
-    transition: { duration: 0.35, ease: HOVER_EASE },
-  },
-  closed: {
-    opacity: 0,
-    height: 0,
-    transition: { duration: 0.25, ease: HOVER_EASE },
-  },
-} as const;
+/* Block show/hide is now driven inline via animate prop on m.section */
 
 function ServiceCard({
   service,
@@ -135,24 +124,22 @@ function ServicesBlock({
   active: boolean;
 }) {
   return (
-    <m.section key={id} layout transition={SECTION_TRANSITION} className="space-y-4">
-      <m.div
-        layout
-        animate={{ opacity: active ? 1 : 0, height: active ? "auto" : 0 }}
-        transition={{ duration: 0.25, ease: HOVER_EASE }}
-        className="overflow-hidden"
-      >
+    <m.section
+      key={id}
+      layout
+      transition={SECTION_TRANSITION}
+      animate={{
+        height: active ? "auto" : 0,
+        opacity: active ? 1 : 0,
+        marginTop: active ? undefined : 0,
+        marginBottom: active ? undefined : 0,
+      }}
+      className="overflow-hidden"
+    >
+      <div className="space-y-4">
         <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
-      </m.div>
 
-      <m.div
-        layout
-        className="overflow-hidden pt-1"
-        variants={blockVariants}
-        initial={false}
-        animate={active ? "open" : "closed"}
-        style={{ pointerEvents: active ? "auto" : "none" }}
-      >
+        <div className="pt-1">
         <m.div
           className="grid gap-4 sm:grid-cols-3"
           variants={gridVariants}
@@ -173,7 +160,8 @@ function ServicesBlock({
             </m.div>
           ))}
         </m.div>
-      </m.div>
+        </div>
+      </div>
     </m.section>
   );
 }
