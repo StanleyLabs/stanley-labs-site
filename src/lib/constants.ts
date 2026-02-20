@@ -95,6 +95,14 @@ export const xrServices = [
     accentShadow: "rgba(52,211,153,0.08)",
     icon: "XR05",
   },
+  {
+    title: "WebXR Game",
+    price: "$10,000–$40,000+",
+    desc: "Browser-based XR game with real-time interaction, physics, and cross-device play.",
+    accentColor: "#FBBF24",
+    accentShadow: "rgba(251,191,36,0.08)",
+    icon: "XR06",
+  },
 ] as const;
 
 export const workItems = [
