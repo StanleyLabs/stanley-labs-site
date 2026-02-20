@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, LayoutGroup } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -83,7 +83,7 @@ function TabButton({
         <m.span
           layoutId="servicesTabPill"
           className="absolute inset-0 -z-10 rounded-full bg-white/10"
-          transition={{ duration: 0.25, ease: HOVER_EASE }}
+          transition={{ type: "spring", stiffness: 520, damping: 38 }}
         />
       ) : null}
       <span className="relative z-10">{children}</span>
@@ -118,17 +118,19 @@ export function ServicesSection() {
             </div>
 
             <div className="w-full sm:w-auto">
-              <div className="flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
-                <TabButton active={tab === "core"} onClick={() => setTab("core")}>
-                  Core
-                </TabButton>
-                <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
-                  3D / XR
-                </TabButton>
-                <TabButton active={tab === "all"} onClick={() => setTab("all")}>
-                  All
-                </TabButton>
-              </div>
+              <LayoutGroup id="servicesTabs">
+                <div className="flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
+                  <TabButton active={tab === "core"} onClick={() => setTab("core")}>
+                    Core
+                  </TabButton>
+                  <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
+                    3D / XR
+                  </TabButton>
+                  <TabButton active={tab === "all"} onClick={() => setTab("all")}>
+                    All
+                  </TabButton>
+                </div>
+              </LayoutGroup>
             </div>
           </div>
 
