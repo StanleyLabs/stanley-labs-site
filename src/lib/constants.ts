@@ -107,6 +107,33 @@ export const xrServices = [
 
 export const workItems = [
   {
+    title: "Vantage XR",
+    desc: "Spatial computing product showcase inspired by Apple Vision Pro. Scroll-driven 3D scenes, parallax storytelling, and cinematic section reveals.",
+    tags: "React • Three.js • Lenis • Tailwind",
+    href: "#",
+    gradient: "linear-gradient(135deg, rgba(34,211,238,0.12) 0%, transparent 60%)",
+    shadow: "rgba(34,211,238,0.1)",
+    accentColor: "#22D3EE",
+  },
+  {
+    title: "Monochrome Studio",
+    desc: "Editorial landing page with sharp typography, tabbed content sections, and a light minimal aesthetic. Clean conversion patterns that don't feel salesy.",
+    tags: "React • TypeScript • Fraunces • Tailwind",
+    href: "#",
+    gradient: "linear-gradient(135deg, rgba(168,85,247,0.12) 0%, transparent 60%)",
+    shadow: "rgba(168,85,247,0.1)",
+    accentColor: "#A855F7",
+  },
+  {
+    title: "Project Dashboard",
+    desc: "Kanban-style project management app with task boards, priority filters, and a polished SaaS-ready UI. Drag, organize, ship.",
+    tags: "React • TypeScript • Jakarta Sans • Tailwind",
+    href: "#",
+    gradient: "linear-gradient(135deg, rgba(74,222,128,0.12) 0%, transparent 60%)",
+    shadow: "rgba(74,222,128,0.1)",
+    accentColor: "#4ADE80",
+  },
+  {
     title: "Drummaverse",
     desc: "Interactive 3D drum experience in the browser. Play and explore in an immersive musical environment built with Babylon.js.",
     tags: "React • TypeScript • Babylon.js",
