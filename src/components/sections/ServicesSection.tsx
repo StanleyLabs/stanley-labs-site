@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
+import { AnimatePresence, LayoutGroup } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { services, xrServices, HOVER_EASE } from "@/lib/constants";
 
 const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
+const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
 
 function ServiceCard({
   service,
@@ -20,7 +22,6 @@ function ServiceCard({
 }) {
   return (
     <m.div
-      key={service.title}
       className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
       whileHover={{
         y: -4,
@@ -83,41 +84,70 @@ function TabButton({
   );
 }
 
+function ServicesBlock({
+  id,
+  label,
+  items,
+  direction,
+  showDisclaimer,
+}: {
+  id: string;
+  label: string;
+  items: ReadonlyArray<{
+    title: string;
+    desc: string;
+    icon: string;
+    accentColor: string;
+    accentShadow: string;
+    price?: string;
+  }>;
+  direction: number;
+  showDisclaimer?: boolean;
+}) {
+  return (
+    <m.div
+      key={id}
+      layout
+      initial={{ opacity: 0, y: direction > 0 ? 18 : -18 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: direction > 0 ? -18 : 18 }}
+      transition={SECTION_TRANSITION}
+      className="space-y-4"
+    >
+      <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {items.map((service) => (
+          <m.div key={service.title} layout>
+            <ServiceCard service={service} />
+          </m.div>
+        ))}
+      </div>
+      {showDisclaimer ? (
+        <m.p layout className="max-w-3xl text-xs text-fog/60">
+          *Pricing is indicative. Final quote depends on content readiness, 3D asset complexity,
+          performance targets, and any back-end/integration requirements.
+        </m.p>
+      ) : null}
+    </m.div>
+  );
+}
+
 export function ServicesSection() {
   const [tab, setTab] = useState<ServicesTab>("core");
-  const [displayTab, setDisplayTab] = useState<ServicesTab>("core");
   const tabOrder = useMemo(() => ({ core: 0, xr: 1, all: 2 }) as const, []);
   const [direction, setDirection] = useState(1);
-
-  const [wipePhase, setWipePhase] = useState<"idle" | "cover" | "reveal">("idle");
-  const [pendingTab, setPendingTab] = useState<ServicesTab | null>(null);
 
   const selectTab = useCallback(
     (next: ServicesTab) => {
       if (next === tab) return;
-
-      const dir = tabOrder[next] >= tabOrder[tab] ? 1 : -1;
-      setDirection(dir);
-      setTab(next); // keep the segmented control responsive
-
-      if (next === displayTab) return;
-      setPendingTab(next);
-      setWipePhase("cover");
+      setDirection(tabOrder[next] >= tabOrder[tab] ? 1 : -1);
+      setTab(next);
     },
-    [displayTab, tab, tabOrder]
+    [tab, tabOrder]
   );
 
-  const sections = useMemo(
-    () =>
-      [
-        { key: "core" as const, label: `CORE WEB (${services.length})`, items: services },
-        { key: "xr" as const, label: `3D / XR (${xrServices.length})`, items: xrServices },
-      ] as const,
-    []
-  );
-
-  const visibleSections =
-    displayTab === "all" ? sections : sections.filter((s) => s.key === displayTab);
+  const showCore = tab !== "xr";
+  const showXr = tab !== "core";
 
   return (
     <section id="services" className="py-16 sm:py-20">
@@ -153,49 +183,36 @@ export function ServicesSection() {
             </div>
           </div>
 
-          <div className="relative mt-8 overflow-hidden">
-            <div className="space-y-10">
-              {visibleSections.map((section) => (
-                <div key={section.key}>
-                  <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                    {section.items.map((service) => (
-                      <ServiceCard key={service.title} service={service} />
-                    ))}
-                  </div>
+          {/*
+            Desired behavior:
+            - Core → All: keep core cards in place and *add* XR below.
+            - All → Core: *remove* XR below.
+            - Core ↔ XR: swap blocks, both moving upward/downward with layout.
+          */}
+          <LayoutGroup id="servicesBlocks">
+            <m.div layout className="mt-8 space-y-10">
+              <AnimatePresence initial={false} mode="popLayout">
+                {showCore ? (
+                  <ServicesBlock
+                    id="core"
+                    label={`CORE WEB (${services.length})`}
+                    items={services}
+                    direction={direction}
+                  />
+                ) : null}
 
-                  {section.key === "xr" ? (
-                    <p className="mt-4 max-w-3xl text-xs text-fog/60">
-                      *Pricing is indicative. Final quote depends on content readiness, 3D asset
-                      complexity, performance targets, and any back-end/integration requirements.
-                    </p>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-
-            {/* Wipe transition: content stays "in place" while a panel covers/un-covers it. */}
-            {wipePhase !== "idle" ? (
-              <m.div
-                key={`${pendingTab ?? "_"}:${direction}`}
-                className="pointer-events-none absolute inset-0"
-                initial={{ x: direction > 0 ? "105%" : "-105%" }}
-                animate={wipePhase === "cover" ? { x: "0%" } : { x: direction > 0 ? "-105%" : "105%" }}
-                transition={{ type: "spring", stiffness: 520, damping: 44 }}
-                onAnimationComplete={() => {
-                  if (wipePhase === "cover") {
-                    if (pendingTab) setDisplayTab(pendingTab);
-                    setWipePhase("reveal");
-                  } else {
-                    setPendingTab(null);
-                    setWipePhase("idle");
-                  }
-                }}
-              >
-                <div className="h-full w-full bg-ink/95" />
-              </m.div>
-            ) : null}
-          </div>
+                {showXr ? (
+                  <ServicesBlock
+                    id="xr"
+                    label={`3D / XR (${xrServices.length})`}
+                    items={xrServices}
+                    direction={direction}
+                    showDisclaimer
+                  />
+                ) : null}
+              </AnimatePresence>
+            </m.div>
+          </LayoutGroup>
         </Reveal>
       </Container>
     </section>
