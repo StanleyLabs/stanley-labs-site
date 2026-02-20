@@ -2,11 +2,11 @@ import { useRef, useState } from "react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useProcessProgress, type ProcessProgress } from "@/hooks/useProcessProgress";
-import { processSteps, MAX_PROCESS_STEPS, HOVER_EASE } from "@/lib/constants";
+import { processSteps, MAX_PROCESS_STEPS, HOVER_TRANSITION, accentGlowGradient } from "@/lib/constants";
 
 const ROW_CLASSES = ["row-start-1", "row-start-2", "row-start-3", "row-start-4"] as const;
-const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 
 const DESKTOP_MARKER_POSITIONS = ["0%", "33.33%", "66.66%", "100%"] as const;
 const MOBILE_MARKER_TOPS = ["12.5%", "37.5%", "62.5%", "87.5%"] as const;
@@ -55,8 +55,7 @@ export function ProcessSection() {
     <section ref={sectionRef} id="process" className="py-16 sm:py-20">
       <Container className="pr-2 sm:pr-8">
         <Reveal>
-          <h2 className="font-display text-2xl text-paper sm:text-3xl">Process</h2>
-          <p className="mt-2 max-w-2xl text-fog/85">How we build with you from discovery to launch.</p>
+          <SectionHeading title="Process" subtitle="How we build with you from discovery to launch." />
           <div className="mt-8 grid grid-cols-[1fr_auto] gap-x-2 gap-y-4 sm:grid-cols-4 sm:gap-4">
             {stepsToRender.map((step, i) => (
               <m.div
@@ -72,7 +71,7 @@ export function ProcessSection() {
                 transition={HOVER_TRANSITION}
               >
                 <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: step.gradient }} />
-                <div className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(ellipse 120% 100% at 50% 0%, ${step.accentColor}20 0%, ${step.accentColor}06 50%, transparent 80%)` }} />
+                <div className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" style={{ background: accentGlowGradient(step.accentColor) }} />
                 <div className="relative">
                   <div className="font-mono text-sm font-medium tracking-wider" style={{ color: step.accentColor }}>{step.number}</div>
                   <div className="mt-2 font-display text-lg text-paper">{step.title}</div>

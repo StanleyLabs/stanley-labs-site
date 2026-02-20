@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container } from "@/components/layout/Container";
+import { invariant } from "@/lib/assert";
 import { CALENDLY_URL, SCROLL_DELAY_MS } from "@/lib/constants";
 
 /** Injects Calendly's external widget script. Idempotent: skips if already present. */
 function ensureCalendlyScript(): void {
+  invariant(document.body, "document.body must exist when injecting Calendly script");
   if (document.getElementById("calendly-widget")) return;
   const s = document.createElement("script");
   s.id = "calendly-widget";

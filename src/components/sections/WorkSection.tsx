@@ -1,17 +1,15 @@
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { workItems, HOVER_EASE } from "@/lib/constants";
-
-const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { workItems, HOVER_TRANSITION, accentGlowGradient } from "@/lib/constants";
 
 export function WorkSection() {
   return (
     <section id="work" className="py-16 sm:py-20">
       <Container>
         <Reveal>
-          <h2 className="font-display text-2xl text-paper sm:text-3xl">Work</h2>
-          <p className="mt-2 max-w-2xl text-fog/85">Selected projects and recent builds.</p>
+          <SectionHeading title="Work" subtitle="Selected projects and recent builds." />
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:items-stretch">
             {workItems.map((project) => (
@@ -39,9 +37,7 @@ export function WorkSection() {
                   <div className="mt-auto font-mono text-xs tracking-wide text-fog/60">{project.tags}</div>
                   <div
                     className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(ellipse 120% 100% at 50% 0%, ${project.accentColor}20 0%, ${project.accentColor}06 50%, transparent 80%)`,
-                    }}
+                    style={{ background: accentGlowGradient(project.accentColor) }}
                   />
                 </div>
               </m.a>

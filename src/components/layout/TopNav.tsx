@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Container } from "./Container";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import { SCROLL_DELAY_MS } from "@/lib/constants";
 
@@ -35,9 +36,9 @@ export function TopNav() {
               <a href="/#services" className="text-sm text-fog/90 hover:text-paper">Services</a>
               <a href="/#work" className="text-sm text-fog/90 hover:text-paper">Work</a>
               <a href="/#process" className="text-sm text-fog/90 hover:text-paper">Process</a>
-              <NavLink to="/book" className="rounded-md bg-electric px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-110 active:scale-[0.98]">Book a call</NavLink>
+              <PrimaryButton to="/book" size="compact">Book a call</PrimaryButton>
             </nav>
-            <NavLink to="/book" className="sm:hidden rounded-md bg-electric px-3 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-110 active:scale-[0.98]">Book</NavLink>
+            <PrimaryButton to="/book" size="compactSm" className="sm:hidden">Book</PrimaryButton>
           </div>
         </Container>
       </div>
