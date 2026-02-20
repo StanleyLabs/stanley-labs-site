@@ -40,7 +40,7 @@ function ServiceCard({
 }) {
   return (
     <m.div
-      className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
+      className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
       whileHover={{
         y: -4,
         boxShadow: `0 8px 32px ${service.accentShadow}, inset 0 0 0 1px rgba(242,244,247,0.08)`,
@@ -53,18 +53,21 @@ function ServiceCard({
         style={{ backgroundColor: service.accentColor }}
       />
       <div className="font-mono text-[10px] tracking-widest text-fog/50">{service.icon}</div>
-      <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
+      <div className="mt-1">
         <div className="font-display text-lg text-paper">{service.title}</div>
-        {service.price ? (
+      </div>
+      <div className="mt-2 flex-1 text-sm leading-relaxed text-fog/85">{service.desc}</div>
+
+      {service.price ? (
+        <div className="mt-4 flex justify-end">
           <div
             className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[10px] tracking-wider text-fog/80"
             title="Pricing is indicative—final scope depends on content, model complexity, and integrations."
           >
             {service.price}
           </div>
-        ) : null}
-      </div>
-      <div className="mt-2 flex-1 text-sm leading-relaxed text-fog/85">{service.desc}</div>
+        </div>
+      ) : null}
       <div
         className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"
         style={{
