@@ -119,7 +119,6 @@ function ServicesBlock({
   label,
   items,
   direction,
-  showDisclaimer,
   active,
 }: {
   id: string;
@@ -133,7 +132,6 @@ function ServicesBlock({
     price?: string;
   }>;
   direction: number;
-  showDisclaimer?: boolean;
   active: boolean;
 }) {
   return (
@@ -168,13 +166,6 @@ function ServicesBlock({
             </m.div>
           ))}
         </m.div>
-
-        {showDisclaimer ? (
-          <m.p layout className="mt-4 max-w-3xl text-xs text-fog/60">
-            *Pricing is indicative. Final quote depends on content readiness, 3D asset complexity,
-            performance targets, and any back-end/integration requirements.
-          </m.p>
-        ) : null}
       </m.div>
     </m.section>
   );
@@ -254,11 +245,15 @@ export function ServicesSection() {
                   items={xrServices}
                   direction={direction}
                   active={showXr}
-                  showDisclaimer
                 />
               </m.div>
             </LayoutGroup>
           </MotionConfig>
+
+          <p className="mt-4 max-w-3xl text-xs text-fog/60">
+            *Pricing is indicative. Final quote depends on content readiness, asset complexity,
+            performance targets, and any back-end/integration requirements.
+          </p>
         </Reveal>
       </Container>
     </section>
