@@ -9,21 +9,21 @@ const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
 
 const listVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.055, delayChildren: 0.04 },
+    transition: { staggerChildren: 0.04, delayChildren: 0.02 },
   },
   exit: {
-    opacity: 0,
+    opacity: 1,
     transition: { staggerChildren: 0.03, staggerDirection: -1 },
   },
 } as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -12, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
 } as const;
 
 function ServiceCard({
@@ -126,9 +126,9 @@ function ServicesBlock({
     <m.section
       key={id}
       layout
-      initial={{ opacity: 0, y: direction > 0 ? 18 : -18 }}
+      initial={{ opacity: 0, y: direction > 0 ? 10 : -10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: direction > 0 ? -18 : 18 }}
+      exit={{ opacity: 0, y: direction > 0 ? -10 : 10 }}
       transition={SECTION_TRANSITION}
       className="space-y-4"
     >
@@ -146,7 +146,7 @@ function ServicesBlock({
             key={service.title}
             layout
             variants={cardVariants}
-            transition={{ duration: 0.35, ease: HOVER_EASE }}
+            transition={{ duration: 0.28, ease: HOVER_EASE }}
           >
             <ServiceCard service={service} />
           </m.div>
