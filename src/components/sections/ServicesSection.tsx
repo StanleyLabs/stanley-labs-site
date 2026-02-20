@@ -111,10 +111,10 @@ export function ServicesSection() {
             </div>
 
             <div className="w-full sm:w-auto">
-              <div className="relative flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
+              <div className="relative flex w-full overflow-hidden sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
                 <m.div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-1 left-1 w-1/3 rounded-full bg-white/10"
+                  className="pointer-events-none absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-full bg-white/10 will-change-transform"
                   animate={{ x: tab === "core" ? "0%" : tab === "xr" ? "100%" : "200%" }}
                   transition={{ type: "spring", stiffness: 520, damping: 38 }}
                 />
