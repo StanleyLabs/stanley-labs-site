@@ -11,17 +11,21 @@ const gridVariants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.02 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.02 },
+  },
+  exit: {
+    opacity: 1,
+    transition: { staggerChildren: 0.04, staggerDirection: -1 },
   },
 } as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 12, scale: 0.99 },
+  hidden: (dir: number) => ({ opacity: 0, y: dir > 0 ? 14 : -14, scale: 0.995 }),
   visible: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: -10, scale: 0.99 },
+  exit: (dir: number) => ({ opacity: 0, y: dir > 0 ? -14 : 14, scale: 0.995 }),
 } as const;
 
-const CARD_TRANSITION = { type: "spring", stiffness: 520, damping: 42 } as const;
+const CARD_TRANSITION = { type: "spring", stiffness: 520, damping: 40 } as const;
 
 function ServiceCard({
   service,
@@ -139,12 +143,14 @@ function ServicesBlock({
         variants={gridVariants}
         initial="hidden"
         animate="visible"
+        exit="exit"
       >
-        <AnimatePresence initial={false} mode="popLayout">
+        <AnimatePresence initial={false} mode="sync">
           {items.map((service) => (
             <m.div
               key={service.title}
-              layout
+              layout="position"
+              custom={direction}
               variants={cardVariants}
               initial="hidden"
               animate="visible"
@@ -233,7 +239,7 @@ export function ServicesSection() {
           */}
           <LayoutGroup id="servicesBlocks">
             <m.div layout className="mt-8 space-y-10">
-              <AnimatePresence initial={false} mode="popLayout">
+              <AnimatePresence initial={false} mode="sync">
                 {showCore ? (
                   <ServicesBlock
                     id="core"
