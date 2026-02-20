@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -68,17 +69,27 @@ function TabButton({
   children: React.ReactNode;
 }) {
   return (
-    <button
+    <m.button
       type="button"
       onClick={onClick}
       className={
-        active
-          ? "rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 font-mono text-[11px] tracking-widest text-paper"
-          : "rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-[11px] tracking-widest text-fog/75 hover:text-paper"
+        "relative isolate rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-widest transition-colors " +
+        (active
+          ? "border-white/15 text-paper"
+          : "border-white/10 bg-white/5 text-fog/75 hover:text-paper")
       }
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2, ease: HOVER_EASE }}
     >
+      {active ? (
+        <m.span
+          layoutId="servicesTabPill"
+          className="absolute inset-0 -z-10 rounded-full bg-white/10"
+          transition={{ duration: 0.25, ease: HOVER_EASE }}
+        />
+      ) : null}
       {children}
-    </button>
+    </m.button>
   );
 }
 
@@ -121,25 +132,46 @@ export function ServicesSection() {
             </div>
           </div>
 
-          <div className="mt-8 space-y-10">
-            {visibleSections.map((section) => (
-              <div key={section.key}>
-                <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
-                <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                  {section.items.map((service) => (
-                    <ServiceCard key={service.title} service={service} />
-                  ))}
-                </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
+              key={tab}
+              className="mt-8 space-y-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: HOVER_EASE }}
+            >
+              {visibleSections.map((section) => (
+                <div key={section.key}>
+                  <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                    {section.items.map((service, idx) => (
+                      <m.div
+                        key={service.title}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, delay: idx * 0.04, ease: HOVER_EASE }}
+                      >
+                        <ServiceCard service={service} />
+                      </m.div>
+                    ))}
+                  </div>
 
-                {section.key === "xr" ? (
-                  <p className="mt-4 max-w-3xl text-xs text-fog/60">
-                    *Pricing is indicative. Final quote depends on content readiness, 3D asset
-                    complexity, performance targets, and any back-end/integration requirements.
-                  </p>
-                ) : null}
-              </div>
-            ))}
-          </div>
+                  {section.key === "xr" ? (
+                    <m.p
+                      className="mt-4 max-w-3xl text-xs text-fog/60"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.25, ease: HOVER_EASE }}
+                    >
+                      *Pricing is indicative. Final quote depends on content readiness, 3D asset
+                      complexity, performance targets, and any back-end/integration requirements.
+                    </m.p>
+                  ) : null}
+                </div>
+              ))}
+            </m.div>
+          </AnimatePresence>
         </Reveal>
       </Container>
     </section>

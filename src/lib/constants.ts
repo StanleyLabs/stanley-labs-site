@@ -28,9 +28,30 @@ export const processSteps = [
 ] as const;
 
 export const services = [
-  { title: "Landing Pages", desc: "Launch fast. Look premium. Optimize for conversion.", accentColor: "#2D6BFF", accentShadow: "rgba(45,107,255,0.06)", icon: "01" },
-  { title: "Websites", desc: "Multi-page sites with clean UX, SEO basics, and great performance.", accentColor: "#FF3B3B", accentShadow: "rgba(255,59,59,0.06)", icon: "02" },
-  { title: "Web Apps", desc: "Dashboards, portals, prototypes → production builds.", accentColor: "#4ADE80", accentShadow: "rgba(74,222,128,0.06)", icon: "03" },
+  {
+    title: "Landing Pages",
+    price: "$1,000–$3,000+",
+    desc: "Launch fast. Look premium. Optimize for conversion.",
+    accentColor: "#2D6BFF",
+    accentShadow: "rgba(45,107,255,0.06)",
+    icon: "01",
+  },
+  {
+    title: "Websites",
+    price: "$2,500–$10,000+",
+    desc: "Multi-page sites with clean UX, SEO basics, and great performance.",
+    accentColor: "#FF3B3B",
+    accentShadow: "rgba(255,59,59,0.06)",
+    icon: "02",
+  },
+  {
+    title: "Web Apps",
+    price: "$5,000–$25,000+",
+    desc: "Dashboards, portals, prototypes → production builds.",
+    accentColor: "#4ADE80",
+    accentShadow: "rgba(74,222,128,0.06)",
+    icon: "03",
+  },
 ] as const;
 
 export const xrServices = [
