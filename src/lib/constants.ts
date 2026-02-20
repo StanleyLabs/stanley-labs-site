@@ -109,7 +109,7 @@ export const workItems = [
   {
     title: "Vantage XR",
     desc: "Spatial computing product showcase inspired by Apple Vision Pro. Scroll-driven 3D scenes, parallax storytelling, and cinematic section reveals.",
-    tags: "React • Three.js • Lenis • Tailwind",
+    tags: "React • Three.js • Lenis",
     href: "#",
     gradient: "linear-gradient(135deg, rgba(168,85,247,0.12) 0%, transparent 60%)",
     shadow: "rgba(168,85,247,0.1)",
@@ -118,7 +118,7 @@ export const workItems = [
   {
     title: "Monochrome Studio",
     desc: "Editorial landing page with sharp typography, tabbed content sections, and a light minimal aesthetic. Clean conversion patterns that don't feel salesy.",
-    tags: "React • TypeScript • Fraunces • Tailwind",
+    tags: "React • TypeScript • Tailwind",
     href: "#",
     gradient: "linear-gradient(135deg, rgba(34,211,238,0.12) 0%, transparent 60%)",
     shadow: "rgba(34,211,238,0.1)",
@@ -127,7 +127,7 @@ export const workItems = [
   {
     title: "Project Dashboard",
     desc: "Kanban-style project management app with task boards, priority filters, and a polished SaaS-ready UI. Drag, organize, ship.",
-    tags: "React • TypeScript • Jakarta Sans • Tailwind",
+    tags: "React • TypeScript • Tailwind",
     href: "#",
     gradient: "linear-gradient(135deg, rgba(74,222,128,0.12) 0%, transparent 60%)",
     shadow: "rgba(74,222,128,0.1)",
