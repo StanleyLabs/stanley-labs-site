@@ -140,7 +140,7 @@ function ServicesBlock({
 
       <m.div
         layout
-        className="overflow-hidden"
+        className="overflow-hidden pt-1"
         variants={blockVariants}
         initial={false}
         animate={active ? "open" : "closed"}
