@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AnimatePresence, LayoutGroup } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -73,20 +73,13 @@ function TabButton({
       type="button"
       onClick={onClick}
       className={
-        "relative isolate flex-1 rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-widest transition-colors " +
+        "relative z-10 flex-1 rounded-full px-3.5 py-1.5 font-mono text-[11px] tracking-widest transition-colors " +
         (active ? "text-paper" : "text-fog/75 hover:text-paper")
       }
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2, ease: HOVER_EASE }}
     >
-      {active ? (
-        <m.span
-          layoutId="servicesTabPill"
-          className="absolute inset-0 -z-10 rounded-full bg-white/10"
-          transition={{ type: "spring", stiffness: 520, damping: 38 }}
-        />
-      ) : null}
-      <span className="relative z-10">{children}</span>
+      {children}
     </m.button>
   );
 }
@@ -118,19 +111,24 @@ export function ServicesSection() {
             </div>
 
             <div className="w-full sm:w-auto">
-              <LayoutGroup id="servicesTabs">
-                <div className="flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
-                  <TabButton active={tab === "core"} onClick={() => setTab("core")}>
-                    Core
-                  </TabButton>
-                  <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
-                    3D / XR
-                  </TabButton>
-                  <TabButton active={tab === "all"} onClick={() => setTab("all")}>
-                    All
-                  </TabButton>
-                </div>
-              </LayoutGroup>
+              <div className="relative flex w-full sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">
+                <m.div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-1 left-1 w-1/3 rounded-full bg-white/10"
+                  animate={{ x: tab === "core" ? "0%" : tab === "xr" ? "100%" : "200%" }}
+                  transition={{ type: "spring", stiffness: 520, damping: 38 }}
+                />
+
+                <TabButton active={tab === "core"} onClick={() => setTab("core")}>
+                  Core
+                </TabButton>
+                <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
+                  3D / XR
+                </TabButton>
+                <TabButton active={tab === "all"} onClick={() => setTab("all")}>
+                  All
+                </TabButton>
+              </div>
             </div>
           </div>
 
