@@ -131,8 +131,7 @@ function ServicesBlock({
       animate={{
         height: active ? "auto" : 0,
         opacity: active ? 1 : 0,
-        marginTop: active ? undefined : 0,
-        marginBottom: active ? undefined : 0,
+        marginBottom: active ? 40 : 0,
       }}
       className="overflow-hidden"
     >
@@ -225,7 +224,7 @@ export function ServicesSection() {
           */}
           <MotionConfig reducedMotion="never">
             <LayoutGroup id="servicesBlocks">
-              <m.div layout className="mt-8 space-y-10">
+              <m.div layout className="mt-8">
                 <ServicesBlock
                   id="core"
                   label={`CORE WEB (${services.length})`}
