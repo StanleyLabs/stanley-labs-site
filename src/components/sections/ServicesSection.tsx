@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
@@ -86,6 +86,16 @@ function TabButton({
 
 export function ServicesSection() {
   const [tab, setTab] = useState<ServicesTab>("core");
+  const tabOrder = useMemo(() => ({ core: 0, xr: 1, all: 2 }) as const, []);
+  const [direction, setDirection] = useState(1);
+
+  const selectTab = useCallback(
+    (next: ServicesTab) => {
+      setDirection(tabOrder[next] >= tabOrder[tab] ? 1 : -1);
+      setTab(next);
+    },
+    [tab, tabOrder]
+  );
 
   const sections = useMemo(
     () =>
@@ -119,59 +129,61 @@ export function ServicesSection() {
                   transition={{ type: "spring", stiffness: 520, damping: 38 }}
                 />
 
-                <TabButton active={tab === "core"} onClick={() => setTab("core")}>
+                <TabButton active={tab === "core"} onClick={() => selectTab("core")}>
                   Core
                 </TabButton>
-                <TabButton active={tab === "xr"} onClick={() => setTab("xr")}>
+                <TabButton active={tab === "xr"} onClick={() => selectTab("xr")}>
                   3D / XR
                 </TabButton>
-                <TabButton active={tab === "all"} onClick={() => setTab("all")}>
+                <TabButton active={tab === "all"} onClick={() => selectTab("all")}>
                   All
                 </TabButton>
               </div>
             </div>
           </div>
 
-          <AnimatePresence mode="wait" initial={false}>
-            <m.div
-              key={tab}
-              className="mt-8 space-y-10"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25, ease: HOVER_EASE }}
-            >
-              {visibleSections.map((section) => (
-                <div key={section.key}>
-                  <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                    {section.items.map((service, idx) => (
-                      <m.div
-                        key={service.title}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: idx * 0.04, ease: HOVER_EASE }}
-                      >
-                        <ServiceCard service={service} />
-                      </m.div>
-                    ))}
-                  </div>
+          <div className="relative mt-8 overflow-hidden">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <m.div
+                key={tab}
+                className="space-y-10"
+                initial={{ opacity: 0, x: direction * 28 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction * -28 }}
+                transition={{ duration: 0.28, ease: HOVER_EASE }}
+              >
+                {visibleSections.map((section) => (
+                  <div key={section.key}>
+                    <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                      {section.items.map((service, idx) => (
+                        <m.div
+                          key={service.title}
+                          initial={{ opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.38, delay: idx * 0.04, ease: HOVER_EASE }}
+                        >
+                          <ServiceCard service={service} />
+                        </m.div>
+                      ))}
+                    </div>
 
-                  {section.key === "xr" ? (
-                    <m.p
-                      className="mt-4 max-w-3xl text-xs text-fog/60"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.25, ease: HOVER_EASE }}
-                    >
-                      *Pricing is indicative. Final quote depends on content readiness, 3D asset
-                      complexity, performance targets, and any back-end/integration requirements.
-                    </m.p>
-                  ) : null}
-                </div>
-              ))}
-            </m.div>
-          </AnimatePresence>
+                    {section.key === "xr" ? (
+                      <m.p
+                        className="mt-4 max-w-3xl text-xs text-fog/60"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.25, ease: HOVER_EASE }}
+                      >
+                        *Pricing is indicative. Final quote depends on content readiness, 3D asset
+                        complexity, performance targets, and any back-end/integration requirements.
+                      </m.p>
+                    ) : null}
+                  </div>
+                ))}
+              </m.div>
+            </AnimatePresence>
+          </div>
         </Reveal>
       </Container>
     </section>
