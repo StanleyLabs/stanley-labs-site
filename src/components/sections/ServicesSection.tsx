@@ -8,6 +8,24 @@ import { services, xrServices, HOVER_EASE } from "@/lib/constants";
 const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
 
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.055, delayChildren: 0.04 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { staggerChildren: 0.03, staggerDirection: -1 },
+  },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  exit: { opacity: 0, y: -12, filter: "blur(6px)" },
+} as const;
+
 function ServiceCard({
   service,
 }: {
@@ -105,7 +123,7 @@ function ServicesBlock({
   showDisclaimer?: boolean;
 }) {
   return (
-    <m.div
+    <m.section
       key={id}
       layout
       initial={{ opacity: 0, y: direction > 0 ? 18 : -18 }}
@@ -115,20 +133,40 @@ function ServicesBlock({
       className="space-y-4"
     >
       <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
-      <div className="grid gap-4 sm:grid-cols-3">
+
+      <m.div
+        className="grid gap-4 sm:grid-cols-3"
+        variants={listVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
         {items.map((service) => (
-          <m.div key={service.title} layout>
+          <m.div
+            key={service.title}
+            layout
+            variants={cardVariants}
+            transition={{ duration: 0.35, ease: HOVER_EASE }}
+          >
             <ServiceCard service={service} />
           </m.div>
         ))}
-      </div>
+      </m.div>
+
       {showDisclaimer ? (
-        <m.p layout className="max-w-3xl text-xs text-fog/60">
+        <m.p
+          layout
+          className="max-w-3xl text-xs text-fog/60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: HOVER_EASE }}
+        >
           *Pricing is indicative. Final quote depends on content readiness, 3D asset complexity,
           performance targets, and any back-end/integration requirements.
         </m.p>
       ) : null}
-    </m.div>
+    </m.section>
   );
 }
 
