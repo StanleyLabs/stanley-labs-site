@@ -40,7 +40,7 @@ function ServiceCard({
 }) {
   return (
     <m.div
-      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
+      className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
       whileHover={{
         y: -4,
         boxShadow: `0 8px 32px ${service.accentShadow}, inset 0 0 0 1px rgba(242,244,247,0.08)`,
@@ -64,7 +64,7 @@ function ServiceCard({
           </div>
         ) : null}
       </div>
-      <div className="mt-2 text-sm leading-relaxed text-fog/85">{service.desc}</div>
+      <div className="mt-2 flex-1 text-sm leading-relaxed text-fog/85">{service.desc}</div>
       <div
         className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"
         style={{

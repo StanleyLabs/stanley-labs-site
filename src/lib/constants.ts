@@ -58,7 +58,7 @@ export const xrServices = [
   {
     title: "WebGL / 3D Interactive Hero",
     price: "Starting at $1,500",
-    desc: "Cinematic 3D hero section (Three.js/Babylon.js). Progressive enhancement + perf budget.",
+    desc: "Cinematic 3D hero (Three.js/Babylon.js). Progressive enhancement + perf budget.",
     accentColor: "#22D3EE",
     accentShadow: "rgba(34,211,238,0.08)",
     icon: "XR01",
@@ -66,7 +66,7 @@ export const xrServices = [
   {
     title: "3D Product + Scroll Storytelling",
     price: "Starting at $3,500",
-    desc: "Spin/zoom product view with scroll-driven narrative beats, callouts, and smooth fallbacks.",
+    desc: "Spin/zoom product view + scroll-driven story beats, callouts, and fallbacks.",
     accentColor: "#A855F7",
     accentShadow: "rgba(168,85,247,0.08)",
     icon: "XR02",
@@ -74,7 +74,7 @@ export const xrServices = [
   {
     title: "3D Configurator",
     price: "$5,000–$15,000+",
-    desc: "Colorways, materials, options, and states with a clean UI and optimized asset pipeline.",
+    desc: "Options, materials, and states with a clean UI and optimized asset pipeline.",
     accentColor: "#FB7185",
     accentShadow: "rgba(251,113,133,0.08)",
     icon: "XR03",
@@ -82,7 +82,7 @@ export const xrServices = [
   {
     title: "WebXR AR Preview (Phone/Tabletop)",
     price: "$3,000–$9,000+",
-    desc: "AR quick-look style preview for supported devices. Designed for stability + delight.",
+    desc: "AR preview for supported devices (quick-look style), tuned for stability + delight.",
     accentColor: "#60A5FA",
     accentShadow: "rgba(96,165,250,0.08)",
     icon: "XR04",
@@ -90,7 +90,7 @@ export const xrServices = [
   {
     title: "WebXR VR Showroom / Walkthrough",
     price: "$8,000–$25,000+",
-    desc: "Immersive VR space for product/showcase flows, with input support and comfort-first motion.",
+    desc: "Immersive VR space for product/showcase flows with comfort-first motion.",
     accentColor: "#34D399",
     accentShadow: "rgba(52,211,153,0.08)",
     icon: "XR05",
