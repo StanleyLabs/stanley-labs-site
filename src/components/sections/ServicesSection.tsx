@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -86,15 +85,26 @@ function TabButton({
 
 export function ServicesSection() {
   const [tab, setTab] = useState<ServicesTab>("core");
+  const [displayTab, setDisplayTab] = useState<ServicesTab>("core");
   const tabOrder = useMemo(() => ({ core: 0, xr: 1, all: 2 }) as const, []);
   const [direction, setDirection] = useState(1);
 
+  const [wipePhase, setWipePhase] = useState<"idle" | "cover" | "reveal">("idle");
+  const [pendingTab, setPendingTab] = useState<ServicesTab | null>(null);
+
   const selectTab = useCallback(
     (next: ServicesTab) => {
-      setDirection(tabOrder[next] >= tabOrder[tab] ? 1 : -1);
-      setTab(next);
+      if (next === tab) return;
+
+      const dir = tabOrder[next] >= tabOrder[tab] ? 1 : -1;
+      setDirection(dir);
+      setTab(next); // keep the segmented control responsive
+
+      if (next === displayTab) return;
+      setPendingTab(next);
+      setWipePhase("cover");
     },
-    [tab, tabOrder]
+    [displayTab, tab, tabOrder]
   );
 
   const sections = useMemo(
@@ -106,7 +116,8 @@ export function ServicesSection() {
     []
   );
 
-  const visibleSections = tab === "all" ? sections : sections.filter((s) => s.key === tab);
+  const visibleSections =
+    displayTab === "all" ? sections : sections.filter((s) => s.key === displayTab);
 
   return (
     <section id="services" className="py-16 sm:py-20">
@@ -143,46 +154,47 @@ export function ServicesSection() {
           </div>
 
           <div className="relative mt-8 overflow-hidden">
-            <AnimatePresence mode="popLayout" initial={false}>
-              <m.div
-                key={tab}
-                className="space-y-10"
-                initial={{ opacity: 0, x: direction * 28 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction * -28 }}
-                transition={{ duration: 0.28, ease: HOVER_EASE }}
-              >
-                {visibleSections.map((section) => (
-                  <div key={section.key}>
-                    <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
-                    <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                      {section.items.map((service, idx) => (
-                        <m.div
-                          key={service.title}
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.38, delay: idx * 0.04, ease: HOVER_EASE }}
-                        >
-                          <ServiceCard service={service} />
-                        </m.div>
-                      ))}
-                    </div>
-
-                    {section.key === "xr" ? (
-                      <m.p
-                        className="mt-4 max-w-3xl text-xs text-fog/60"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.25, ease: HOVER_EASE }}
-                      >
-                        *Pricing is indicative. Final quote depends on content readiness, 3D asset
-                        complexity, performance targets, and any back-end/integration requirements.
-                      </m.p>
-                    ) : null}
+            <div className="space-y-10">
+              {visibleSections.map((section) => (
+                <div key={section.key}>
+                  <div className="font-mono text-xs tracking-widest text-fog/50">{section.label}</div>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                    {section.items.map((service) => (
+                      <ServiceCard key={service.title} service={service} />
+                    ))}
                   </div>
-                ))}
+
+                  {section.key === "xr" ? (
+                    <p className="mt-4 max-w-3xl text-xs text-fog/60">
+                      *Pricing is indicative. Final quote depends on content readiness, 3D asset
+                      complexity, performance targets, and any back-end/integration requirements.
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+
+            {/* Wipe transition: content stays "in place" while a panel covers/un-covers it. */}
+            {wipePhase !== "idle" ? (
+              <m.div
+                key={`${pendingTab ?? "_"}:${direction}`}
+                className="pointer-events-none absolute inset-0"
+                initial={{ x: direction > 0 ? "105%" : "-105%" }}
+                animate={wipePhase === "cover" ? { x: "0%" } : { x: direction > 0 ? "-105%" : "105%" }}
+                transition={{ type: "spring", stiffness: 520, damping: 44 }}
+                onAnimationComplete={() => {
+                  if (wipePhase === "cover") {
+                    if (pendingTab) setDisplayTab(pendingTab);
+                    setWipePhase("reveal");
+                  } else {
+                    setPendingTab(null);
+                    setWipePhase("idle");
+                  }
+                }}
+              >
+                <div className="h-full w-full bg-ink/95" />
               </m.div>
-            </AnimatePresence>
+            ) : null}
           </div>
         </Reveal>
       </Container>
