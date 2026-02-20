@@ -8,22 +8,11 @@ import { services, xrServices, HOVER_EASE } from "@/lib/constants";
 const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 const SECTION_TRANSITION = { duration: 0.32, ease: HOVER_EASE };
 
-const listVariants = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0.02 },
-  },
-  exit: {
-    opacity: 1,
-    transition: { staggerChildren: 0.03, staggerDirection: -1 },
-  },
-} as const;
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
+const CARD_ENTER = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
+  transition: { duration: 0.28, ease: HOVER_EASE },
 } as const;
 
 function ServiceCard({
@@ -47,6 +36,9 @@ function ServiceCard({
         transition: HOVER_TRANSITION,
       }}
       transition={HOVER_TRANSITION}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div
         className="absolute top-0 left-0 h-0.5 w-full origin-left scale-x-[0.15] transition-transform duration-300 ease-out group-hover:scale-x-100"
@@ -137,24 +129,13 @@ function ServicesBlock({
     >
       <div className="font-mono text-xs tracking-widest text-fog/50">{label}</div>
 
-      <m.div
-        className="grid gap-4 sm:grid-cols-3"
-        variants={listVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
+      <div className="grid gap-4 sm:grid-cols-3">
         {items.map((service) => (
-          <m.div
-            key={service.title}
-            layout
-            variants={cardVariants}
-            transition={{ duration: 0.28, ease: HOVER_EASE }}
-          >
+          <m.div key={service.title} layout {...CARD_ENTER}>
             <ServiceCard service={service} />
           </m.div>
         ))}
-      </m.div>
+      </div>
 
       {showDisclaimer ? (
         <m.p
