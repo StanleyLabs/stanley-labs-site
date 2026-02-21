@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { invariant } from "@/lib/assert";
 import {
+  CALENDLY_CARD_HEIGHT,
+  CALENDLY_CARD_WIDTH,
   CALENDLY_EMBED_MIN_HEIGHT,
   CALENDLY_SCRIPT_ID,
   CALENDLY_SCRIPT_SRC,
@@ -9,8 +11,28 @@ import {
   SCROLL_DELAY_MS,
 } from "@/lib/constants";
 
-/** Bounded iteration for loading dots (NASA Power of 10). */
-const LOADING_DOT_COUNT = 3;
+/** Shimmering skeleton loading card that matches the Calendly widget's size. */
+function CalendlySkeleton() {
+  return (
+    <div
+      className="absolute inset-0 flex items-start justify-center pt-16 bg-ink"
+      aria-hidden
+      style={{ minHeight: CALENDLY_EMBED_MIN_HEIGHT }}
+    >
+      <div
+        className="w-full max-w-[800px] overflow-hidden rounded-xl bg-steel/50"
+        style={{
+          width: CALENDLY_CARD_WIDTH,
+          height: CALENDLY_CARD_HEIGHT,
+          backgroundImage:
+            "linear-gradient(90deg, transparent 0%, rgba(242,244,247,0.04) 45%, rgba(242,244,247,0.07) 50%, rgba(242,244,247,0.04) 55%, transparent 100%)",
+          backgroundSize: "200% 100%",
+          animation: "skeleton-shimmer 1.8s ease-in-out infinite",
+        }}
+      />
+    </div>
+  );
+}
 
 /** Injects Calendly's external widget script. Auto-initializes .calendly-inline-widget elements with data-url. */
 function injectCalendlyScript(): void {
@@ -31,32 +53,6 @@ function removeCalendlyScript(): void {
   if (s) s.remove();
 }
 
-/** Bouncing dots shown before Calendly injects its UI – sized/positioned to match Calendly's spinner */
-function LoadingDots() {
-  return (
-    <div
-      className="absolute inset-0 flex items-start justify-center bg-ink"
-      aria-hidden
-      style={{ minHeight: CALENDLY_EMBED_MIN_HEIGHT }}
-    >
-      <div className="flex items-center justify-center gap-1.5">
-        {Array.from({ length: LOADING_DOT_COUNT }, (_, i) => (
-          <span
-            key={i}
-            className="rounded-full bg-fog/80"
-            style={{
-              width: 18,
-              height: 18,
-              animation: "calendly-load-bounce 1.4s ease-in-out infinite both",
-              animationDelay: `${(i - 2) * 0.16}s`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function BookPage() {
   const [showPreloader, setShowPreloader] = useState(true);
   const widgetRef = useRef<HTMLDivElement>(null);
@@ -72,21 +68,23 @@ export function BookPage() {
   }, []);
 
   useEffect(() => {
-    const widget = widgetRef.current;
-    if (!widget) return;
-
     const hidePreloader = () => setShowPreloader(false);
 
-    if (widget.children.length > 0) {
-      hidePreloader();
-      return;
-    }
+    const handleMessage = (e: MessageEvent) => {
+      if (e.origin !== "https://calendly.com") return;
+      if (e.data?.event === "calendly.event_type_viewed") {
+        hidePreloader();
+      }
+    };
 
-    const observer = new MutationObserver(() => {
-      if (widget.children.length > 0) hidePreloader();
-    });
-    observer.observe(widget, { childList: true });
-    return () => observer.disconnect();
+    window.addEventListener("message", handleMessage);
+
+    const fallbackTimeout = setTimeout(hidePreloader, 15000);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      clearTimeout(fallbackTimeout);
+    };
   }, []);
 
   return (
@@ -103,7 +101,7 @@ export function BookPage() {
           className="relative mt-8 overflow-hidden rounded-xl bg-transparent"
           style={{ minHeight: CALENDLY_EMBED_MIN_HEIGHT }}
         >
-          {showPreloader && <LoadingDots />}
+          {showPreloader && <CalendlySkeleton />}
           <div
             ref={widgetRef}
             className="calendly-inline-widget"

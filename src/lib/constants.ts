@@ -25,6 +25,10 @@ export const CALENDLY_URL =
 /** Calendly inline embed min height (px). Matches widget sizing. */
 export const CALENDLY_EMBED_MIN_HEIGHT = 750;
 
+/** Calendly widget card dimensions – the popup is smaller than the full embed container. */
+export const CALENDLY_CARD_WIDTH = 800;
+export const CALENDLY_CARD_HEIGHT = 560;
+
 /** Calendly widget script – injected/removed on BookPage mount/unmount for SPA navigation. */
 export const CALENDLY_SCRIPT_ID = "calendly-widget";
 export const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
