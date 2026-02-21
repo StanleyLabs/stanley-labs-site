@@ -47,7 +47,7 @@ export const processSteps = [
 export const services = [
   {
     title: "Landing Pages",
-    price: "$1,000–$3,000+",
+    price: "$1,200–$3,500+",
     desc: "Launch fast. Look premium. Optimize for conversion.",
     accentColor: "#2D6BFF",
     accentShadow: "rgba(45,107,255,0.06)",
@@ -55,7 +55,7 @@ export const services = [
   },
   {
     title: "Websites",
-    price: "$2,500–$10,000+",
+    price: "$3,500–$10,000+",
     desc: "Multi-page sites with clean UX, SEO basics, and great performance.",
     accentColor: "#FF3B3B",
     accentShadow: "rgba(255,59,59,0.06)",
@@ -63,7 +63,7 @@ export const services = [
   },
   {
     title: "Web Apps",
-    price: "$5,000–$25,000+",
+    price: "$8,500–$25,000+",
     desc: "Dashboards, portals, prototypes → production builds.",
     accentColor: "#4ADE80",
     accentShadow: "rgba(74,222,128,0.06)",
