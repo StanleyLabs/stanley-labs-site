@@ -146,7 +146,7 @@ export const workItems = [
     title: "Group Video Chat",
     desc: "Real-time video conferencing with WebRTC. Join rooms, share video and audio, built for low-latency collaboration.",
     tags: "WebRTC • Socket.io • Node",
-    href: "https://video-chat.up.railway.app/",
+    href: "https://call.stanleylabs.com",
     gradient: "linear-gradient(135deg, rgba(255,59,59,0.06) 0%, transparent 60%)",
     shadow: "rgba(255,59,59,0.1)",
     accentColor: "#FF3B3B",
