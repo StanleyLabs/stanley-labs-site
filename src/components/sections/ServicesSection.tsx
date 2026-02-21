@@ -224,7 +224,8 @@ export function ServicesSection() {
 
           <p className="mt-4 max-w-3xl text-xs text-fog/60">
             *Pricing is indicative. Final quote depends on content readiness, asset complexity,
-            performance targets, and any back-end/integration requirements.
+            performance targets, and any back-end/integration requirements. SEO-ready and
+            accessible by default — with upgrade options for deeper optimization.
           </p>
         </Reveal>
       </Container>
