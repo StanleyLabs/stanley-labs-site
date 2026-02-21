@@ -170,6 +170,7 @@ export function ServicesSection() {
             <SectionHeading
               title="Services"
               subtitle="Websites, web apps, and 3D/XR experiences — built with a performance-first mindset."
+              subtitle2="SEO-ready and accessible by default — with upgrade options for deeper optimization."
             />
 
             <div className="w-full sm:w-auto">
@@ -222,11 +223,9 @@ export function ServicesSection() {
             </LayoutGroup>
           </MotionConfig>
 
-          <p className="mt-4 max-w-3xl text-xs text-fog/60">
+          <p className="mt-4 w-full text-xs text-fog/60">
             *Pricing is indicative. Final quote depends on content readiness, asset complexity,
             performance targets, and any back-end/integration requirements.
-            <br />
-            SEO-ready and accessible by default — with upgrade options for deeper optimization.
           </p>
         </Reveal>
       </Container>
