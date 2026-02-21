@@ -151,7 +151,7 @@ export const workItems = [
   {
     title: "Project Dashboard",
     desc: "Kanban-style project management app with task boards, priority filters, and a polished SaaS-ready UI. Drag, organize, ship.",
-    tags: "React • TypeScript • Tailwind",
+    tags: "React • Tailwind • dnd-kit",
     href: "https://project-dashboard-stanley-labs.vercel.app/demo",
     gradient: "linear-gradient(135deg, rgba(74,222,128,0.12) 0%, transparent 60%)",
     shadow: "rgba(74,222,128,0.1)",
@@ -169,7 +169,7 @@ export const workItems = [
   {
     title: "Whiteboard App",
     desc: "Collaborative digital whiteboard for sketching, drawing, and brainstorming. Real-time canvas with intuitive tools for remote teams.",
-    tags: "React • TypeScript • tldraw",
+    tags: "React • tldraw • Supabase",
     href: "https://stanleylabs.vercel.app",
     gradient: "linear-gradient(135deg, rgba(245,158,11,0.12) 0%, transparent 60%)",
     shadow: "rgba(245,158,11,0.1)",
