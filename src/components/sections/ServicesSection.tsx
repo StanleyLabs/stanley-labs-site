@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from "react";
 import { LayoutGroup, MotionConfig, motion as m } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { services, xrServices, HOVER_EASE } from "@/lib/constants";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { services, xrServices, HOVER_EASE, HOVER_TRANSITION, accentGlowGradient, type ServiceItem } from "@/lib/constants";
 
-const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE };
 const SECTION_TRANSITION = { duration: 0.38, ease: HOVER_EASE };
 
 const gridVariants = {
@@ -24,18 +24,7 @@ const CARD_TRANSITION = { duration: 0.38, ease: HOVER_EASE } as const;
 
 /* Block show/hide is now driven inline via animate prop on m.section */
 
-function ServiceCard({
-  service,
-}: {
-  service: {
-    title: string;
-    desc: string;
-    icon: string;
-    accentColor: string;
-    accentShadow: string;
-    price?: string;
-  };
-}) {
+function ServiceCard({ service }: { service: ServiceItem }) {
   return (
     <m.div
       className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-insetHairline"
@@ -68,9 +57,7 @@ function ServiceCard({
       ) : null}
       <div
         className="pointer-events-none absolute -top-4 left-0 right-0 h-32 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(ellipse 120% 100% at 50% 0%, ${service.accentColor}20 0%, ${service.accentColor}06 50%, transparent 80%)`,
-        }}
+        style={{ background: accentGlowGradient(service.accentColor) }}
       />
     </m.div>
   );
@@ -112,14 +99,7 @@ function ServicesBlock({
 }: {
   id: string;
   label: string;
-  items: ReadonlyArray<{
-    title: string;
-    desc: string;
-    icon: string;
-    accentColor: string;
-    accentShadow: string;
-    price?: string;
-  }>;
+  items: ReadonlyArray<ServiceItem>;
   direction: number;
   active: boolean;
 }) {
@@ -187,12 +167,10 @@ export function ServicesSection() {
       <Container>
         <Reveal>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="font-display text-2xl text-paper sm:text-3xl">Services</h2>
-              <p className="mt-2 max-w-2xl text-fog/85">
-                Websites, web apps, and 3D/XR experiences — built with a performance-first mindset.
-              </p>
-            </div>
+            <SectionHeading
+              title="Services"
+              subtitle="Websites, web apps, and 3D/XR experiences — built with a performance-first mindset."
+            />
 
             <div className="w-full sm:w-auto">
               <div className="relative flex w-full overflow-hidden sm:w-[320px] rounded-full border border-white/10 bg-white/5 p-1 shadow-insetHairline">

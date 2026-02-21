@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useScroll, useSpring, useTransform, useMotionValue } from "motion/react";
+import { invariant } from "@/lib/assert";
 
 const springConfig = { stiffness: 200, damping: 25 };
 const SCROLL_DOMINANCE_MS = 400;
@@ -15,7 +16,11 @@ const STEP_COLORS: [string, string, string, string] = [
 /** Marker lit when step >= threshold; else dim (0.35). */
 const markerLit = (v: number, threshold: number) => (v >= threshold ? 1 : 0.35);
 /** Maps scroll 0–1 to discrete bar progress; four steps. */
-const discreteProgressFromScroll = (v: number) => STEP_PROGRESS[Math.min(3, Math.floor(v * 4))];
+function discreteProgressFromScroll(v: number): number {
+  invariant(Number.isFinite(v), "scroll progress must be finite");
+  const idx = Math.min(3, Math.max(0, Math.floor(v * 4)));
+  return STEP_PROGRESS[idx];
+}
 
 type HoverOverride = { progress: number; stepIndex: number; m2: number; m3: number; m4: number } | null;
 
@@ -30,6 +35,10 @@ export function useProcessProgress(
   const scrollDominateTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    invariant(
+      hoveredStepIndex == null || (hoveredStepIndex >= 0 && hoveredStepIndex <= 3),
+      "hoveredStepIndex must be null or 0–3"
+    );
     const o: HoverOverride =
       hoveredStepIndex != null
         ? {

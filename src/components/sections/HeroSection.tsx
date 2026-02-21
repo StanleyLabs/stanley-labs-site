@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { NavLink } from "react-router-dom";
 import * as m from "motion/react-m";
 import { useScroll, useTransform } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { heroVariants } from "@/lib/constants";
 
 const heroAnimate = { initial: "hidden" as const, animate: "visible" as const, variants: heroVariants };
@@ -34,7 +34,7 @@ export function HeroSection() {
             Stanley Labs designs and builds fast, cinematic web experiences, crafted in React/TypeScript with clean systems, sharp UI, and reliable delivery.
           </m.p>
           <m.div {...heroAnimate} custom={3} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <NavLink to="/book" className="inline-flex items-center justify-center rounded-md bg-electric px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-110 active:scale-[0.98]">Book a call</NavLink>
+            <PrimaryButton to="/book">Book a call</PrimaryButton>
             <a href="#work" className="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-paper transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/10 active:scale-[0.98]">View work</a>
           </m.div>
         </div>

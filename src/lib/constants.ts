@@ -1,6 +1,16 @@
 /** Bounded iteration limit for process steps (NASA Power of 10). */
 export const MAX_PROCESS_STEPS = 4;
 
+/** Shared shape for service cards (core + XR). */
+export type ServiceItem = {
+  title: string;
+  desc: string;
+  icon: string;
+  accentColor: string;
+  accentShadow: string;
+  price?: string;
+};
+
 /** Delay (ms) before scrolling after route navigation. */
 export const SCROLL_DELAY_MS = 50;
 
@@ -14,6 +24,13 @@ export const CALENDLY_URL =
 
 /** Shared easing for hover/transition animations. */
 export const HOVER_EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Accent glow gradient for cards (expects hex color without #). */
+export const accentGlowGradient = (hex: string) =>
+  `radial-gradient(ellipse 120% 100% at 50% 0%, ${hex}20 0%, ${hex}06 50%, transparent 80%)`;
+
+/** Standard hover transition for cards and interactive elements. */
+export const HOVER_TRANSITION = { duration: 0.25, ease: HOVER_EASE } as const;
 
 export const heroVariants = {
   hidden: { opacity: 0, y: 24 },

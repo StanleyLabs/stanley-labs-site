@@ -14,7 +14,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-4 text-sm">
             <NavLink to="/book" className="text-fog/90 hover:text-paper">Book</NavLink>
-            <a href={CALENDLY_URL} className="text-fog/90 hover:text-paper">Calendly</a>
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="text-fog/90 hover:text-paper">Calendly</a>
           </div>
         </div>
       </Container>

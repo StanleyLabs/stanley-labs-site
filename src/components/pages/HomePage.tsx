@@ -7,7 +7,11 @@ import { CtaSection } from "@/components/sections/CtaSection";
 export function HomePage() {
   return (
     <main>
-      <HeroSection /><ServicesSection /><WorkSection /><ProcessSection /><CtaSection />
+      <HeroSection />
+      <ServicesSection />
+      <WorkSection />
+      <ProcessSection />
+      <CtaSection />
     </main>
   );
 }
