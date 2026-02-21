@@ -1,17 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { invariant } from "@/lib/assert";
-import { CALENDLY_URL, SCROLL_DELAY_MS } from "@/lib/constants";
+import {
+  CALENDLY_EMBED_MIN_HEIGHT,
+  CALENDLY_SCRIPT_ID,
+  CALENDLY_SCRIPT_SRC,
+  CALENDLY_URL,
+  SCROLL_DELAY_MS,
+} from "@/lib/constants";
 
-/** Injects Calendly's external widget script. Idempotent: skips if already present. */
-function ensureCalendlyScript(): void {
+/** Bounded iteration for loading dots (NASA Power of 10). */
+const LOADING_DOT_COUNT = 3;
+
+/** Injects Calendly's external widget script. Auto-initializes .calendly-inline-widget elements with data-url. */
+function injectCalendlyScript(): void {
   invariant(document.body, "document.body must exist when injecting Calendly script");
-  if (document.getElementById("calendly-widget")) return;
+  invariant(CALENDLY_SCRIPT_ID.length > 0, "Calendly script ID must be non-empty");
+  if (document.getElementById(CALENDLY_SCRIPT_ID)) return;
   const s = document.createElement("script");
-  s.id = "calendly-widget";
-  s.src = "https://assets.calendly.com/assets/external/widget.js";
+  s.id = CALENDLY_SCRIPT_ID;
+  s.src = CALENDLY_SCRIPT_SRC;
   s.async = true;
   document.body.appendChild(s);
+}
+
+/** Removes the Calendly script on unmount so it re-initializes on next visit (SPA navigation fix). */
+function removeCalendlyScript(): void {
+  invariant(typeof document !== "undefined", "Document must exist when removing Calendly script");
+  const s = document.getElementById(CALENDLY_SCRIPT_ID);
+  if (s) s.remove();
 }
 
 /** Bouncing dots shown before Calendly injects its UI – sized/positioned to match Calendly's spinner */
@@ -20,10 +37,10 @@ function LoadingDots() {
     <div
       className="absolute inset-0 flex items-start justify-center bg-ink"
       aria-hidden
-      style={{ minHeight: 750 }}
+      style={{ minHeight: CALENDLY_EMBED_MIN_HEIGHT }}
     >
       <div className="flex items-center justify-center gap-1.5">
-        {[0, 1, 2].map((i) => (
+        {Array.from({ length: LOADING_DOT_COUNT }, (_, i) => (
           <span
             key={i}
             className="rounded-full bg-fog/80"
@@ -42,8 +59,12 @@ function LoadingDots() {
 
 export function BookPage() {
   const [showPreloader, setShowPreloader] = useState(true);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { ensureCalendlyScript(); }, []);
+  useEffect(() => {
+    injectCalendlyScript();
+    return removeCalendlyScript;
+  }, []);
 
   useEffect(() => {
     const id = setTimeout(() => window.scrollTo(0, 0), SCROLL_DELAY_MS);
@@ -51,7 +72,7 @@ export function BookPage() {
   }, []);
 
   useEffect(() => {
-    const widget = document.querySelector(".calendly-inline-widget");
+    const widget = widgetRef.current;
     if (!widget) return;
 
     const hidePreloader = () => setShowPreloader(false);
@@ -78,16 +99,20 @@ export function BookPage() {
           </div>
           <a href={CALENDLY_URL} className="hidden sm:inline text-sm text-electric hover:text-electric/90">Open in Calendly →</a>
         </div>
-        <div className="relative mt-8 min-h-[750px] overflow-hidden rounded-xl bg-transparent">
+        <div
+          className="relative mt-8 overflow-hidden rounded-xl bg-transparent"
+          style={{ minHeight: CALENDLY_EMBED_MIN_HEIGHT }}
+        >
           {showPreloader && <LoadingDots />}
           <div
+            ref={widgetRef}
             className="calendly-inline-widget"
             data-url={CALENDLY_URL}
             data-resize="true"
             style={{
               minWidth: 320,
-              minHeight: 750,
-              height: 750,
+              minHeight: CALENDLY_EMBED_MIN_HEIGHT,
+              height: CALENDLY_EMBED_MIN_HEIGHT,
               colorScheme: "light",
               backgroundColor: "transparent",
             }}

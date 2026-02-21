@@ -22,6 +22,13 @@ const CALENDLY_PRIMARY = "3A78FF"; /* darker than 4A88FF, still lighter than ele
 export const CALENDLY_URL =
   `https://calendly.com/stanleylabs/30min?embed_type=Inline&hide_gdpr_banner=1&background_color=${CALENDLY_BG}&text_color=${CALENDLY_TEXT}&primary_color=${CALENDLY_PRIMARY}`;
 
+/** Calendly inline embed min height (px). Matches widget sizing. */
+export const CALENDLY_EMBED_MIN_HEIGHT = 750;
+
+/** Calendly widget script – injected/removed on BookPage mount/unmount for SPA navigation. */
+export const CALENDLY_SCRIPT_ID = "calendly-widget";
+export const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
+
 /** Shared easing for hover/transition animations. */
 export const HOVER_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -145,19 +152,10 @@ export const workItems = [
     title: "Project Dashboard",
     desc: "Kanban-style project management app with task boards, priority filters, and a polished SaaS-ready UI. Drag, organize, ship.",
     tags: "React • TypeScript • Tailwind",
-    href: "https://project-dashboard-stanley-labs.vercel.app/",
+    href: "https://project-dashboard-stanley-labs.vercel.app/demo",
     gradient: "linear-gradient(135deg, rgba(74,222,128,0.12) 0%, transparent 60%)",
     shadow: "rgba(74,222,128,0.1)",
     accentColor: "#4ADE80",
-  },
-  {
-    title: "Drummaverse",
-    desc: "Interactive 3D drum experience in the browser. Play and explore in an immersive musical environment built with Babylon.js.",
-    tags: "React • TypeScript • Babylon.js",
-    href: "https://drummaverse.nexmos.io",
-    gradient: "linear-gradient(135deg, rgba(45,107,255,0.12) 0%, transparent 60%)",
-    shadow: "rgba(45,107,255,0.1)",
-    accentColor: "#2D6BFF",
   },
   {
     title: "Group Video Chat",
@@ -167,5 +165,23 @@ export const workItems = [
     gradient: "linear-gradient(135deg, rgba(255,59,59,0.06) 0%, transparent 60%)",
     shadow: "rgba(255,59,59,0.1)",
     accentColor: "#FF3B3B",
+  },
+  {
+    title: "Whiteboard App",
+    desc: "Collaborative digital whiteboard for sketching, drawing, and brainstorming. Real-time canvas with intuitive tools for remote teams.",
+    tags: "React • TypeScript • tldraw",
+    href: "https://stanleylabs.vercel.app",
+    gradient: "linear-gradient(135deg, rgba(245,158,11,0.12) 0%, transparent 60%)",
+    shadow: "rgba(245,158,11,0.1)",
+    accentColor: "#F59E0B",
+  },
+  {
+    title: "Drummaverse",
+    desc: "Interactive 3D drum experience in the browser. Play and explore in an immersive musical environment built with Babylon.js.",
+    tags: "React • TypeScript • Babylon.js",
+    href: "https://drummaverse.nexmos.io",
+    gradient: "linear-gradient(135deg, rgba(45,107,255,0.12) 0%, transparent 60%)",
+    shadow: "rgba(45,107,255,0.1)",
+    accentColor: "#2D6BFF",
   },
 ] as const;
