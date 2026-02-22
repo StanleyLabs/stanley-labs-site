@@ -49,7 +49,7 @@ function ServiceCard({ service }: { service: ServiceItem }) {
         <div className="mt-4 flex justify-end">
           <div
             className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[10px] tracking-wider text-fog/80"
-            title="Pricing is indicative—final scope depends on content, model complexity, and integrations."
+            title="Pricing is indicative-final scope depends on content, model complexity, and integrations."
           >
             {service.price}
           </div>
@@ -169,8 +169,8 @@ export function ServicesSection() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
               title="Services"
-              subtitle="Websites, web apps, and 3D/XR experiences — built with a performance-first mindset."
-              subtitle2="SEO-ready and accessible by default — with upgrade options for deeper optimization."
+              subtitle="Websites, web apps, and 3D/XR experiences - built with a performance-first mindset."
+              subtitle2="SEO-ready and accessible by default - with upgrade options for deeper optimization."
             />
 
             <div className="w-full sm:w-auto">

@@ -14,8 +14,8 @@ export type ServiceItem = {
 /** Delay (ms) before scrolling after route navigation. */
 export const SCROLL_DELAY_MS = 50;
 
-/** Calendly embed colors – dark theme to match site */
-const CALENDLY_BG = "0B0D10"; /* ink – match site background */
+/** Calendly embed colors - dark theme to match site */
+const CALENDLY_BG = "0B0D10"; /* ink - match site background */
 const CALENDLY_TEXT = "F2F4F7";
 const CALENDLY_PRIMARY = "3A78FF"; /* darker than 4A88FF, still lighter than electric */
 
@@ -25,11 +25,11 @@ export const CALENDLY_URL =
 /** Calendly inline embed min height (px). Matches widget sizing. */
 export const CALENDLY_EMBED_MIN_HEIGHT = 750;
 
-/** Calendly widget card dimensions – the popup is smaller than the full embed container. */
+/** Calendly widget card dimensions - the popup is smaller than the full embed container. */
 export const CALENDLY_CARD_WIDTH = 800;
 export const CALENDLY_CARD_HEIGHT = 560;
 
-/** Calendly widget script – injected/removed on BookPage mount/unmount for SPA navigation. */
+/** Calendly widget script - injected/removed on BookPage mount/unmount for SPA navigation. */
 export const CALENDLY_SCRIPT_ID = "calendly-widget";
 export const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
 
@@ -58,7 +58,7 @@ export const processSteps = [
 export const services = [
   {
     title: "Landing Pages",
-    price: "$1,200–$3,500+",
+    price: "$1,200-$3,500+",
     desc: "Launch fast. Look premium. Optimize for conversion.",
     accentColor: "#2D6BFF",
     accentShadow: "rgba(45,107,255,0.06)",
@@ -66,7 +66,7 @@ export const services = [
   },
   {
     title: "Websites",
-    price: "$3,500–$10,000+",
+    price: "$3,500-$10,000+",
     desc: "Multi-page sites with clean UX, SEO basics, and great performance.",
     accentColor: "#FF3B3B",
     accentShadow: "rgba(255,59,59,0.06)",
@@ -74,7 +74,7 @@ export const services = [
   },
   {
     title: "Web Apps",
-    price: "$8,500–$25,000+",
+    price: "$8,500-$25,000+",
     desc: "Dashboards, portals, prototypes → production builds.",
     accentColor: "#4ADE80",
     accentShadow: "rgba(74,222,128,0.06)",
@@ -101,7 +101,7 @@ export const xrServices = [
   },
   {
     title: "3D Configurator",
-    price: "$5,000–$15,000+",
+    price: "$5,000-$15,000+",
     desc: "Options, materials, and states with a clean UI and optimized asset pipeline.",
     accentColor: "#FB7185",
     accentShadow: "rgba(251,113,133,0.08)",
@@ -109,7 +109,7 @@ export const xrServices = [
   },
   {
     title: "WebXR AR Preview (Phone/Tabletop)",
-    price: "$3,000–$9,000+",
+    price: "$3,000-$9,000+",
     desc: "AR preview for supported devices (quick-look style), tuned for stability + delight.",
     accentColor: "#60A5FA",
     accentShadow: "rgba(96,165,250,0.08)",
@@ -117,7 +117,7 @@ export const xrServices = [
   },
   {
     title: "WebXR VR Showroom / Walkthrough",
-    price: "$8,000–$25,000+",
+    price: "$8,000-$25,000+",
     desc: "Immersive VR space for product/showcase flows with comfort-first motion.",
     accentColor: "#34D399",
     accentShadow: "rgba(52,211,153,0.08)",
@@ -125,8 +125,8 @@ export const xrServices = [
   },
   {
     title: "Web Game",
-    price: "$10,000–$40,000+",
-    desc: "Real-time browser game — physics, input, multiplayer-ready. No installs, just play.",
+    price: "$10,000-$40,000+",
+    desc: "Real-time browser game - physics, input, multiplayer-ready. No installs, just play.",
     accentColor: "#A855F7",
     accentShadow: "rgba(168,85,247,0.08)",
     icon: "XR06",

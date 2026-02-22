@@ -8,14 +8,14 @@ const SCROLL_DOMINANCE_MS = 400;
 const STEP_PROGRESS = [0.05, 0.333, 0.666, 1] as const;
 /** Accent colors for each step: blue, red, green, purple. */
 const STEP_COLORS: [string, string, string, string] = [
-  "#2D6BFF", /* blue – Discover */
-  "#FF3B3B", /* red – Design */
-  "#4ADE80", /* green – Build */
-  "#A855F7", /* purple – Launch */
+  "#2D6BFF", /* blue - Discover */
+  "#FF3B3B", /* red - Design */
+  "#4ADE80", /* green - Build */
+  "#A855F7", /* purple - Launch */
 ];
 /** Marker lit when step >= threshold; else dim (0.35). */
 const markerLit = (v: number, threshold: number) => (v >= threshold ? 1 : 0.35);
-/** Maps scroll 0–1 to discrete bar progress; four steps. */
+/** Maps scroll 0-1 to discrete bar progress; four steps. */
 function discreteProgressFromScroll(v: number): number {
   invariant(Number.isFinite(v), "scroll progress must be finite");
   const idx = Math.min(3, Math.max(0, Math.floor(v * 4)));
@@ -37,7 +37,7 @@ export function useProcessProgress(
   useEffect(() => {
     invariant(
       hoveredStepIndex == null || (hoveredStepIndex >= 0 && hoveredStepIndex <= 3),
-      "hoveredStepIndex must be null or 0–3"
+      "hoveredStepIndex must be null or 0-3"
     );
     const o: HoverOverride =
       hoveredStepIndex != null
