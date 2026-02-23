@@ -20,7 +20,7 @@ const CALENDLY_TEXT = "F2F4F7";
 const CALENDLY_PRIMARY = "3A78FF"; /* darker than 4A88FF, still lighter than electric */
 
 export const CALENDLY_URL =
-  `https://calendly.com/stanleylabs/30min?embed_type=Inline&hide_gdpr_banner=1&background_color=${CALENDLY_BG}&text_color=${CALENDLY_TEXT}&primary_color=${CALENDLY_PRIMARY}`;
+  `https://calendly.com/stanleylabs/30-min-meeting?embed_type=Inline&hide_gdpr_banner=1&background_color=${CALENDLY_BG}&text_color=${CALENDLY_TEXT}&primary_color=${CALENDLY_PRIMARY}`;
 
 /** Calendly inline embed min height (px). Matches widget sizing. */
 export const CALENDLY_EMBED_MIN_HEIGHT = 750;
