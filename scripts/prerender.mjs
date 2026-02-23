@@ -1,55 +1,58 @@
 /**
- * Post-build prerender: spins up a static server, visits each route with
- * Puppeteer, and writes the fully-rendered HTML back to dist/.
+ * Post-build static prerender: generates per-route HTML by injecting
+ * the correct Helmet meta tags into the built index.html. No browser needed.
  */
-import { mkdir, readdir, writeFile } from "node:fs/promises";
-import { createServer } from "node:http";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import handler from "serve-handler";
-import puppeteer from "puppeteer";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
-const ROUTES = ["/", "/book"];
-const PORT = 4173;
 
-async function serve() {
-  const server = createServer((req, res) =>
-    handler(req, res, {
-      public: DIST,
-      rewrites: [{ source: "**", destination: "/index.html" }],
-    })
-  );
-  await new Promise((r) => server.listen(PORT, r));
-  return server;
-}
+const ROUTES = [
+  {
+    path: "/",
+    title: "Stanley Labs - Websites & Software",
+    description:
+      "Stanley Labs builds fast, cinematic websites and software for businesses.",
+    canonical: "https://stanleylabs.com/",
+  },
+  {
+    path: "/book",
+    title: "Book a Call - Stanley Labs",
+    description:
+      "Schedule a free 30-minute consultation with Stanley Labs. We'll discuss your project scope, timeline, and next steps.",
+    canonical: "https://stanleylabs.com/book",
+  },
+];
 
 async function prerender() {
-  const server = await serve();
-  const browser = await puppeteer.launch({
-    headless: true,
-    executablePath: "/usr/bin/chromium",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const template = await readFile(join(DIST, "index.html"), "utf-8");
 
   for (const route of ROUTES) {
-    const page = await browser.newPage();
-    await page.goto(`http://localhost:${PORT}${route}`, {
-      waitUntil: "networkidle0",
-    });
+    // Replace <title>
+    let html = template.replace(
+      /<title>[^<]*<\/title>/,
+      `<title>${route.title}</title>`
+    );
 
-    const html = await page.content();
-    const outDir = join(DIST, route === "/" ? "" : route);
+    // Inject meta description + canonical + OG right before </head>
+    const inject = [
+      `<meta name="description" content="${route.description}" />`,
+      `<link rel="canonical" href="${route.canonical}" />`,
+      `<meta property="og:title" content="${route.title}" />`,
+      `<meta property="og:description" content="${route.description}" />`,
+      `<meta property="og:url" content="${route.canonical}" />`,
+    ].join("\n    ");
+
+    html = html.replace("</head>", `    ${inject}\n  </head>`);
+
+    const outDir = join(DIST, route.path === "/" ? "" : route.path);
     await mkdir(outDir, { recursive: true });
     const outFile = join(outDir, "index.html");
     await writeFile(outFile, html, "utf-8");
-    console.log(`Prerendered: ${route} -> ${outFile}`);
-    await page.close();
+    console.log(`Prerendered: ${route.path} -> ${outFile}`);
   }
-
-  await browser.close();
-  server.close();
 }
 
 prerender().catch((err) => {
