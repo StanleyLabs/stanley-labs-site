@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { LazyMotion, domAnimation } from "motion/react";
+import { Analytics } from "@vercel/analytics/react";
 import { TopNav, Footer, HomePage, BookPage } from "@/components";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
           <Route path="/book" element={<BookPage />} />
         </Routes>
         <Footer />
+        <Analytics />
       </div>
     </LazyMotion>
   );
