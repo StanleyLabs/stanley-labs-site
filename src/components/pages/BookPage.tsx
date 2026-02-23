@@ -91,10 +91,10 @@ export function BookPage() {
   return (
     <main className="py-10 sm:py-14">
       <Helmet>
-        <title>Book a Call — Stanley Labs</title>
+        <title>Book a Call - Stanley Labs</title>
         <meta name="description" content="Schedule a free 30-minute consultation with Stanley Labs. We'll discuss your project scope, timeline, and next steps." />
         <link rel="canonical" href="https://stanleylabs.com/book" />
-        <meta property="og:title" content="Book a Call — Stanley Labs" />
+        <meta property="og:title" content="Book a Call - Stanley Labs" />
         <meta property="og:description" content="Schedule a free 30-minute consultation with Stanley Labs. We'll discuss your project scope, timeline, and next steps." />
         <meta property="og:url" content="https://stanleylabs.com/book" />
       </Helmet>
