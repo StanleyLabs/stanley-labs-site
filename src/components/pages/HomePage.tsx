@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
@@ -20,6 +21,14 @@ export function HomePage() {
 
   return (
     <main>
+      <Helmet>
+        <title>Stanley Labs — Websites & Software</title>
+        <meta name="description" content="Stanley Labs builds fast, cinematic websites and software for businesses." />
+        <link rel="canonical" href="https://stanleylabs.com/" />
+        <meta property="og:title" content="Stanley Labs — Websites & Software" />
+        <meta property="og:description" content="Stanley Labs builds fast, cinematic websites and software for businesses." />
+        <meta property="og:url" content="https://stanleylabs.com/" />
+      </Helmet>
       <HeroSection />
       <ServicesSection />
       <WorkSection />
