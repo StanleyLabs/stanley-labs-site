@@ -1,2 +1,2 @@
 export { TopNav, Footer } from "./layout";
-export { HomePage, BookPage } from "./pages";
+export { HomePage, BookPage, PrivacyPage } from "./pages";
