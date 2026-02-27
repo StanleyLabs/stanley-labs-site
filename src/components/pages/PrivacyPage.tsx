@@ -1,8 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import { Container } from "../layout/Container";
 
 export function PrivacyPage() {
   return (
     <div className="py-16">
+      <Helmet>
+        <title>Privacy Policy - Stanley Labs</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <Container>
         <h1 className="font-display text-3xl font-semibold text-paper">Privacy</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-fog/80">
