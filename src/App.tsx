@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { LazyMotion, domAnimation } from "motion/react";
 import { Analytics } from "@vercel/analytics/react";
 import { Helmet } from "react-helmet-async";
